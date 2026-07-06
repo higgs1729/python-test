@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>データ分析試験 模擬問題集</title>
+<style>
+  :root {
+    --bg: #f5f7fa; --card: #ffffff; --primary: #2563eb; --primary-d: #1d4ed8;
+    --ok: #16a34a; --ng: #dc2626; --border: #e2e8f0; --text: #1e293b; --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Meiryo", system-ui, sans-serif;
+    background: var(--bg); color: var(--text); margin: 0; padding: 16px;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: .85rem; margin-bottom: 16px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  button {
+    font-family: inherit; font-size: .95rem; cursor: pointer; border-radius: 8px;
+    border: 1px solid var(--border); background: #fff; padding: 10px 16px;
+    transition: .12s; color: var(--text);
+  }
+  button:hover { border-color: var(--primary); }
+  .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .btn-primary:hover { background: var(--primary-d); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  label.cat {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    border: 1px solid var(--border); border-radius: 8px; font-size: .88rem; cursor: pointer;
+  }
+  label.cat:hover { background: #f1f5f9; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .choice {
+    display: block; width: 100%; text-align: left; margin: 8px 0; padding: 12px 14px;
+    white-space: pre-wrap;
+  }
+  .choice.correct { background: #dcfce7; border-color: var(--ok); }
+  .choice.wrong   { background: #fee2e2; border-color: var(--ng); }
+  .choice:disabled { cursor: default; opacity: 1; }
+  .qtext { font-size: 1.05rem; margin-bottom: 6px; white-space: pre-wrap; }
+  .tag {
+    display: inline-block; font-size: .72rem; background: #eff6ff; color: var(--primary);
+    padding: 2px 8px; border-radius: 999px; margin-bottom: 10px;
+  }
+  .exp {
+    margin-top: 14px; padding: 12px 14px; background: #f8fafc;
+    border-left: 4px solid var(--primary); border-radius: 4px; font-size: .9rem;
+  }
+  .progress-bar { height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin: 10px 0; }
+  .progress-bar > div { height: 100%; background: var(--primary); transition: width .3s; }
+  .stat { font-size: .85rem; color: var(--muted); }
+  .big { font-size: 2.2rem; font-weight: 700; }
+  .ok-txt { color: var(--ok); } .ng-txt { color: var(--ng); }
+  .hide { display: none; }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; margin-top: 8px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .mini { font-size: .78rem; color: var(--muted); }
+  a { color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 データ分析試験 模擬問題集</h1>
+  <div class="sub">Python3エンジニア認定 データ分析試験対策 ／ 学習用オリジナル問題</div>
+
+  <!-- ===== スタート画面 ===== -->
+  <div id="home">
+    <div class="card">
+      <strong>出題する分野を選択</strong>
+      <div class="row" style="margin:10px 0;">
+        <button onclick="selectAll(true)">すべて選択</button>
+        <button onclick="selectAll(false)">すべて解除</button>
+      </div>
+      <div class="grid" id="catGrid"></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <label>出題数:
+          <select id="numQ">
+            <option value="10">10問</option>
+            <option value="20">20問</option>
+            <option value="40" selected>40問(本番形式)</option>
+            <option value="0">全問</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="wrongOnly"> 誤答した問題のみ出題</label>
+      </div>
+      <div class="row" style="margin-top:8px;">
+        <label><input type="checkbox" id="shuffle" checked> 問題順をシャッフル</label>
+      </div>
+      <button class="btn-primary" style="margin-top:14px; width:100%;" onclick="startQuiz()">▶ 試験を開始</button>
+    </div>
+
+    <div class="card" id="statCard">
+      <strong>これまでの成績</strong>
+      <div id="statBody" class="mini" style="margin-top:8px;"></div>
+      <button style="margin-top:12px;" onclick="resetStats()">成績・履歴をリセット</button>
+    </div>
+  </div>
+
+  <!-- ===== 出題画面 ===== -->
+  <div id="quiz" class="hide">
+    <div class="card">
+      <div class="stat" id="qCounter"></div>
+      <div class="progress-bar"><div id="qBar" style="width:0%"></div></div>
+      <div class="tag" id="qTag"></div>
+      <div class="qtext" id="qText"></div>
+      <div id="choices"></div>
+      <div class="exp hide" id="expBox"></div>
+      <div class="row" style="margin-top:16px; justify-content:flex-end;">
+        <button id="nextBtn" class="btn-primary hide" onclick="nextQ()">次へ ▶</button>
+      </div>
+    </div>
+    <button onclick="quitQuiz()">■ 中断してホームへ</button>
+  </div>
+
+  <!-- ===== 結果画面 ===== -->
+  <div id="result" class="hide">
+    <div class="card" style="text-align:center;">
+      <div class="mini">正答率</div>
+      <div class="big" id="scorePct"></div>
+      <div id="passFail" style="font-weight:700; margin:6px 0;"></div>
+      <div class="stat" id="scoreDetail"></div>
+    </div>
+    <div class="card">
+      <strong>分野別の正答率</strong>
+      <table id="catTable"></table>
+    </div>
+    <div class="row">
+      <button class="btn-primary" onclick="location.reload()">ホームに戻る</button>
+      <button onclick="retryWrong()">誤答した問題だけ復習</button>
+    </div>
+  </div>
+</div>
+
+<script src="questions.js"></script>
+<script>
+const LS_STATS = "da_exam_stats_v1";   // {qid: {seen, correct}}
+let stats = JSON.parse(localStorage.getItem(LS_STATS) || "{}");
+let session = null;
+
+// ---- 初期化: カテゴリのチェックボックス生成 ----
+function renderCats() {
+  const grid = document.getElementById("catGrid");
+  grid.innerHTML = "";
+  for (const [key, name] of Object.entries(window.CATEGORIES)) {
+    const n = QUESTIONS.filter(q => q.cat === key).length;
+    grid.insertAdjacentHTML("beforeend",
+      `<label class="cat"><input type="checkbox" class="catChk" value="${key}" checked>
+       ${name} <span class="mini">(${n})</span></label>`);
+  }
+}
+function selectAll(v) { document.querySelectorAll(".catChk").forEach(c => c.checked = v); }
+
+function selectedCats() {
+  return [...document.querySelectorAll(".catChk:checked")].map(c => c.value);
+}
+
+// ---- 成績サマリ表示 ----
+function renderStats() {
+  const ids = Object.keys(stats);
+  let seen = 0, correct = 0;
+  ids.forEach(id => { seen += stats[id].seen; correct += stats[id].correct; });
+  const body = document.getElementById("statBody");
+  if (seen === 0) { body.textContent = "まだ解答履歴がありません。"; return; }
+  const pct = Math.round(correct / seen * 100);
+  const answered = ids.length;
+  body.innerHTML =
+    `延べ解答数: <b>${seen}</b>　累計正答率: <b>${pct}%</b>　`
+    + `出題済み問題: <b>${answered} / ${QUESTIONS.length}</b>`;
+}
+
+function shuffleArr(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ---- クイズ開始 ----
+function startQuiz() {
+  const cats = selectedCats();
+  if (cats.length === 0) { alert("分野を1つ以上選択してください。"); return; }
+  let pool = QUESTIONS.filter(q => cats.includes(q.cat));
+
+  if (document.getElementById("wrongOnly").checked) {
+    pool = pool.filter(q => stats[q.id] && stats[q.id].seen > stats[q.id].correct);
+    if (pool.length === 0) { alert("誤答した問題がありません。まずは通常出題で解いてみましょう。"); return; }
+  }
+  if (document.getElementById("shuffle").checked) shuffleArr(pool);
+
+  let num = parseInt(document.getElementById("numQ").value);
+  if (num > 0 && pool.length > num) pool = pool.slice(0, num);
+
+  session = { list: pool, idx: 0, correct: 0, answers: [] };
+  document.getElementById("home").classList.add("hide");
+  document.getElementById("result").classList.add("hide");
+  document.getElementById("quiz").classList.remove("hide");
+  showQ();
+}
+
+function showQ() {
+  const q = session.list[session.idx];
+  document.getElementById("qCounter").textContent =
+    `第 ${session.idx + 1} 問 / 全 ${session.list.length} 問`;
+  document.getElementById("qBar").style.width =
+    (session.idx / session.list.length * 100) + "%";
+  document.getElementById("qTag").textContent = window.CATEGORIES[q.cat];
+  document.getElementById("qText").textContent = q.q;
+  const box = document.getElementById("choices");
+  box.innerHTML = "";
+  q.choices.forEach((c, i) => {
+    box.insertAdjacentHTML("beforeend",
+      `<button class="choice" onclick="answer(${i})">${String.fromCharCode(65 + i)}. ${escapeHtml(c)}</button>`);
+  });
+  document.getElementById("expBox").classList.add("hide");
+  document.getElementById("nextBtn").classList.add("hide");
+}
+
+function escapeHtml(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+function answer(sel) {
+  const q = session.list[session.idx];
+  const correct = q.answer;
+  const btns = document.querySelectorAll("#choices .choice");
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === correct) b.classList.add("correct");
+    if (i === sel && sel !== correct) b.classList.add("wrong");
+  });
+  const isRight = sel === correct;
+  if (isRight) session.correct++;
+  session.answers.push({ id: q.id, cat: q.cat, right: isRight });
+
+  // 統計更新
+  if (!stats[q.id]) stats[q.id] = { seen: 0, correct: 0 };
+  stats[q.id].seen++;
+  if (isRight) stats[q.id].correct++;
+  localStorage.setItem(LS_STATS, JSON.stringify(stats));
+
+  const exp = document.getElementById("expBox");
+  exp.innerHTML = (isRight ? "<b class='ok-txt'>正解！</b> " : "<b class='ng-txt'>不正解</b> ")
+    + "正解は <b>" + String.fromCharCode(65 + correct) + "</b>。<br>" + escapeHtml(q.exp);
+  exp.classList.remove("hide");
+  document.getElementById("nextBtn").classList.remove("hide");
+}
+
+function nextQ() {
+  session.idx++;
+  if (session.idx >= session.list.length) showResult();
+  else showQ();
+}
+
+function showResult() {
+  document.getElementById("quiz").classList.add("hide");
+  document.getElementById("result").classList.remove("hide");
+  const total = session.list.length;
+  const pct = Math.round(session.correct / total * 100);
+  document.getElementById("scorePct").textContent = pct + "%";
+  const pass = pct >= 70;
+  const pf = document.getElementById("passFail");
+  pf.textContent = pass ? "✅ 合格ライン(70%)到達！" : "❌ 合格ライン(70%)まであと " + (70 - pct) + "%";
+  pf.className = pass ? "ok-txt" : "ng-txt";
+  document.getElementById("scoreDetail").textContent =
+    `${total}問中 ${session.correct}問 正解`;
+
+  // 分野別集計
+  const byCat = {};
+  session.answers.forEach(a => {
+    byCat[a.cat] = byCat[a.cat] || { n: 0, c: 0 };
+    byCat[a.cat].n++; if (a.right) byCat[a.cat].c++;
+  });
+  let html = "<tr><th>分野</th><th>正答</th><th>正答率</th></tr>";
+  for (const [cat, v] of Object.entries(byCat)) {
+    const p = Math.round(v.c / v.n * 100);
+    html += `<tr><td>${window.CATEGORIES[cat]}</td><td>${v.c}/${v.n}</td>`
+          + `<td class="${p>=70?'ok-txt':'ng-txt'}">${p}%</td></tr>`;
+  }
+  document.getElementById("catTable").innerHTML = html;
+}
+
+function retryWrong() {
+  const wrongIds = session.answers.filter(a => !a.right).map(a => a.id);
+  if (wrongIds.length === 0) { alert("誤答はありませんでした！"); return; }
+  let pool = QUESTIONS.filter(q => wrongIds.includes(q.id));
+  shuffleArr(pool);
+  session = { list: pool, idx: 0, correct: 0, answers: [] };
+  document.getElementById("result").classList.add("hide");
+  document.getElementById("quiz").classList.remove("hide");
+  showQ();
+}
+
+function quitQuiz() {
+  if (confirm("中断してホームに戻りますか？")) location.reload();
+}
+
+function resetStats() {
+  if (confirm("すべての成績・解答履歴を削除します。よろしいですか？")) {
+    localStorage.removeItem(LS_STATS);
+    stats = {};
+    renderStats();
+  }
+}
+
+// 初期描画
+renderCats();
+renderStats();
+</script>
+</body>
+</html>
