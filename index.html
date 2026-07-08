@@ -63,6 +63,57 @@
   th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
   .mini { font-size: .78rem; color: var(--muted); }
   a { color: var(--primary); }
+  select, input[type="number"] {
+    font-family: inherit; font-size: .9rem; padding: 6px 8px;
+    border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--text);
+  }
+  input[type="number"] { width: 64px; }
+  .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .filter-row > span.lbl { min-width: 92px; font-size: .9rem; }
+  .flag-opts { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .flag-opts label { display: flex; align-items: center; gap: 6px; font-size: .88rem; cursor: pointer; }
+  .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); }
+  .dot.green { background: #16a34a; } .dot.yellow { background: #eab308; } .dot.red { background: #dc2626; }
+  .dot.check { background: #2563eb; }
+  .flag-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px;
+    padding-top: 12px; border-top: 1px dashed var(--border); }
+  .flag-bar .lbl { font-size: .82rem; color: var(--muted); }
+  .flag-btn { padding: 6px 10px; display: flex; align-items: center; gap: 6px; font-size: .82rem; }
+  .flag-btn.active { border-color: var(--primary); background: #eff6ff; font-weight: 700; }
+  .flag-btn .cnt {
+    display: inline-block; min-width: 18px; padding: 0 5px; margin-left: 2px;
+    font-size: .74rem; font-weight: 700; text-align: center; border-radius: 999px;
+    background: #e2e8f0; color: var(--muted);
+  }
+  .flag-btn.active .cnt { background: var(--primary); color: #fff; }
+  .flag-undo { padding: 6px 10px; font-size: .8rem; color: var(--muted); }
+  .flag-seq {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-top: 8px;
+    font-size: .78rem; color: var(--muted); min-height: 20px;
+  }
+  .flag-seq .seq-dot { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+  .flag-seq .seq-dot .num {
+    font-size: .62rem; color: #fff; font-weight: 700; position: absolute;
+  }
+  .flag-seq .dot { width: 16px; height: 16px; }
+  .choiceExp {
+    font-size: .82rem; margin: -2px 4px 10px; padding: 6px 10px; border-radius: 6px;
+    line-height: 1.5;
+  }
+  .choiceExp.ce-ok { background: #f0fdf4; color: #15803d; border-left: 3px solid var(--ok); }
+  .choiceExp.ce-ng { background: #fef2f2; color: #b91c1c; border-left: 3px solid var(--ng); }
+  .qlist-item {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; width: 100%;
+    text-align: left; margin: 6px 0; border: 1px solid var(--border); border-radius: 8px;
+    background: #fff; cursor: pointer;
+  }
+  .qlist-item:hover { border-color: var(--primary); background: #f8fafc; }
+  .qlist-item .qnum { font-size: .78rem; color: var(--muted); min-width: 52px; }
+  .qlist-item .qsummary { flex: 1; font-size: .9rem; }
+  .qlist-item .qmark { flex-shrink: 0; display: flex; gap: 6px; align-items: center; }
+  .fc { display: inline-flex; align-items: center; gap: 2px; font-size: .72rem; color: var(--muted); }
+  .fc .dot { width: 12px; height: 12px; }
+  .browse-detail .choice { cursor: default; }
 </style>
 </head>
 <body>
@@ -72,6 +123,17 @@
 
   <!-- ===== スタート画面 ===== -->
   <div id="home">
+    <div class="card">
+      <div class="row" style="justify-content:space-between; align-items:center;">
+        <strong>学習モードを選択</strong>
+        <div class="row">
+          <button onclick="openBrowse()">📖 問題一覧から選んで見る</button>
+          <button id="exitBtn" onclick="exitApp()">⏻ 終了</button>
+        </div>
+      </div>
+      <div class="mini" style="margin-top:6px;">ランダム出題で力試し、または問題一覧から解答・解説を自由に確認できます。</div>
+    </div>
+
     <div class="card">
       <strong>出題する分野を選択</strong>
       <div class="row" style="margin:10px 0;">
@@ -99,6 +161,68 @@
       <button class="btn-primary" style="margin-top:14px; width:100%;" onclick="startQuiz()">▶ 試験を開始</button>
     </div>
 
+    <div class="card">
+      <strong>条件で絞り込み</strong>
+      <div class="filter-row">
+        <span class="lbl">回答回数</span>
+        <select id="seenOp">
+          <option value="off" selected>指定なし</option>
+          <option value="gte">以上</option>
+          <option value="lte">以下</option>
+        </select>
+        <input type="number" id="seenVal" min="0" value="1">
+        <span class="mini">回</span>
+      </div>
+      <div class="filter-row">
+        <span class="lbl">間違えた回数</span>
+        <select id="wrongOp">
+          <option value="off" selected>指定なし</option>
+          <option value="gte">以上</option>
+          <option value="lte">以下</option>
+        </select>
+        <input type="number" id="wrongVal" min="0" value="1">
+        <span class="mini">回</span>
+      </div>
+      <div style="margin-top:14px; font-size:.9rem;">マーク回数で絞り込み（指定した条件をすべて満たす問題を出題）</div>
+      <div class="filter-row">
+        <span class="lbl"><span class="dot check"></span> チェック</span>
+        <select id="checkOp">
+          <option value="off" selected>指定なし</option>
+          <option value="gte">以上</option>
+          <option value="lte">以下</option>
+        </select>
+        <input type="number" id="checkVal" min="0" value="1"><span class="mini">回</span>
+      </div>
+      <div class="filter-row">
+        <span class="lbl"><span class="dot green"></span> 緑</span>
+        <select id="greenOp">
+          <option value="off" selected>指定なし</option>
+          <option value="gte">以上</option>
+          <option value="lte">以下</option>
+        </select>
+        <input type="number" id="greenVal" min="0" value="1"><span class="mini">回</span>
+      </div>
+      <div class="filter-row">
+        <span class="lbl"><span class="dot yellow"></span> 黄</span>
+        <select id="yellowOp">
+          <option value="off" selected>指定なし</option>
+          <option value="gte">以上</option>
+          <option value="lte">以下</option>
+        </select>
+        <input type="number" id="yellowVal" min="0" value="1"><span class="mini">回</span>
+      </div>
+      <div class="filter-row">
+        <span class="lbl"><span class="dot red"></span> 赤</span>
+        <select id="redOp">
+          <option value="off" selected>指定なし</option>
+          <option value="gte">以上</option>
+          <option value="lte">以下</option>
+        </select>
+        <input type="number" id="redVal" min="0" value="1"><span class="mini">回</span>
+      </div>
+      <div class="mini" id="filterCount" style="margin-top:10px;"></div>
+    </div>
+
     <div class="card" id="statCard">
       <strong>これまでの成績</strong>
       <div id="statBody" class="mini" style="margin-top:8px;"></div>
@@ -115,11 +239,56 @@
       <div class="qtext" id="qText"></div>
       <div id="choices"></div>
       <div class="exp hide" id="expBox"></div>
+      <div class="flag-bar" id="quizFlagBar">
+        <span class="lbl">マーク（押すたびに加算）:</span>
+        <button class="flag-btn" data-flag="check" onclick="qAddFlag('check')"><span class="dot check"></span>チェック<span class="cnt" data-cnt="check">0</span></button>
+        <button class="flag-btn" data-flag="green" onclick="qAddFlag('green')"><span class="dot green"></span>緑<span class="cnt" data-cnt="green">0</span></button>
+        <button class="flag-btn" data-flag="yellow" onclick="qAddFlag('yellow')"><span class="dot yellow"></span>黄<span class="cnt" data-cnt="yellow">0</span></button>
+        <button class="flag-btn" data-flag="red" onclick="qAddFlag('red')"><span class="dot red"></span>赤<span class="cnt" data-cnt="red">0</span></button>
+        <button class="flag-undo" onclick="qUndoFlag()">↩ 最後を取消</button>
+      </div>
+      <div class="flag-seq" id="quizFlagSeq"></div>
       <div class="row" style="margin-top:16px; justify-content:flex-end;">
         <button id="nextBtn" class="btn-primary hide" onclick="nextQ()">次へ ▶</button>
       </div>
     </div>
     <button onclick="quitQuiz()">■ 中断してホームへ</button>
+  </div>
+
+  <!-- ===== 問題一覧(ブラウズ)画面 ===== -->
+  <div id="browse" class="hide">
+    <div class="card">
+      <div class="row" style="justify-content:space-between; align-items:center;">
+        <strong>問題一覧</strong>
+        <button onclick="closeBrowse()">■ ホームへ戻る</button>
+      </div>
+      <div class="filter-row" style="margin-top:12px;">
+        <span class="lbl">分野で絞込</span>
+        <select id="browseCat"></select>
+      </div>
+      <div class="mini" id="browseCount" style="margin-top:8px;"></div>
+      <div id="qlist" style="margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <!-- ===== 問題詳細(ブラウズ)画面 ===== -->
+  <div id="browseDetail" class="hide">
+    <div class="card browse-detail">
+      <button onclick="backToList()" style="margin-bottom:12px;">◀ 一覧へ戻る</button>
+      <div class="tag" id="bdTag"></div>
+      <div class="qtext" id="bdText"></div>
+      <div id="bdChoices"></div>
+      <div class="exp" id="bdExp" style="margin-top:14px;"></div>
+      <div class="flag-bar" id="bdFlagBar">
+        <span class="lbl">マーク（押すたびに加算）:</span>
+        <button class="flag-btn" data-flag="check" onclick="bdAddFlag('check')"><span class="dot check"></span>チェック<span class="cnt" data-cnt="check">0</span></button>
+        <button class="flag-btn" data-flag="green" onclick="bdAddFlag('green')"><span class="dot green"></span>緑<span class="cnt" data-cnt="green">0</span></button>
+        <button class="flag-btn" data-flag="yellow" onclick="bdAddFlag('yellow')"><span class="dot yellow"></span>黄<span class="cnt" data-cnt="yellow">0</span></button>
+        <button class="flag-btn" data-flag="red" onclick="bdAddFlag('red')"><span class="dot red"></span>赤<span class="cnt" data-cnt="red">0</span></button>
+        <button class="flag-undo" onclick="bdUndoFlag()">↩ 最後を取消</button>
+      </div>
+      <div class="flag-seq" id="bdFlagSeq"></div>
+    </div>
   </div>
 
   <!-- ===== 結果画面 ===== -->
@@ -143,9 +312,125 @@
 
 <script src="questions.js"></script>
 <script>
-const LS_STATS = "da_exam_stats_v1";   // {qid: {seen, correct}}
-let stats = JSON.parse(localStorage.getItem(LS_STATS) || "{}");
+const LS_STATS = "da_exam_stats_v1";   // {qid: {seen, correct}}  (フォールバック用)
+const LS_FLAGS = "da_exam_flags_v1";   // {qid: [...]}            (フォールバック用)
+const API = "/api/progress";           // server.py 経由の保存先(progress.json)
+let stats = {};
+let flags = {};
+let apiAvailable = false;              // server.py 経由で保存できるか
 let session = null;
+
+// 学習データを読み込む。server.py 起動時は progress.json から、
+// file:// で直接開いた場合は localStorage から読み込む。
+async function loadData() {
+  try {
+    const r = await fetch(API, { cache: "no-store" });
+    if (r.ok) {
+      const d = await r.json();
+      stats = d.stats || {};
+      flags = d.flags || {};
+      apiAvailable = true;
+      return;
+    }
+  } catch (e) { /* サーバ未起動(file://で開いた等) → localStorageへ */ }
+  stats = JSON.parse(localStorage.getItem(LS_STATS) || "{}");
+  flags = JSON.parse(localStorage.getItem(LS_FLAGS) || "{}");
+}
+
+// 変更を保存。server.py 利用時は progress.json に、それ以外は localStorage に書き込む。
+// 連続操作をまとめるため、サーバ書き込みは短時間デバウンスする。
+let _saveTimer = null;
+function persist() {
+  if (apiAvailable) {
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(() => {
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stats, flags })
+      }).catch(() => {});
+    }, 250);
+  } else {
+    localStorage.setItem(LS_STATS, JSON.stringify(stats));
+    localStorage.setItem(LS_FLAGS, JSON.stringify(flags));
+  }
+}
+
+const FLAG_COLORS = ["check", "green", "yellow", "red"];
+const FLAG_LABEL = { check: "チェック", green: "緑", yellow: "黄", red: "赤" };
+
+function saveFlags() { persist(); }
+function flagList(id) { return flags[id] || []; }
+function flagCount(id, color) { return flagList(id).filter(f => f === color).length; }
+function addFlagTo(id, color) { (flags[id] = flags[id] || []).push(color); saveFlags(); }
+function undoFlagFrom(id) {
+  if (flags[id] && flags[id].length) {
+    flags[id].pop();
+    if (flags[id].length === 0) delete flags[id];
+    saveFlags();
+  }
+}
+
+// 押した順のマーク列を番号付きドットで表示するHTML
+function flagSeqHtml(id) {
+  const seq = flagList(id);
+  if (seq.length === 0) return '<span>まだマークはありません</span>';
+  return "<span>順番:</span>" + seq.map((f, i) =>
+    `<span class="seq-dot"><span class="dot ${f}"></span><span class="num">${i + 1}</span></span>`
+  ).join("");
+}
+// 一覧用: 各色の個数を集約表示(例: 🔵×3 🟡×2)
+function flagCountHtml(id) {
+  return FLAG_COLORS.map(c => {
+    const n = flagCount(id, c);
+    return n ? `<span class="fc" title="${FLAG_LABEL[c]} ${n}回"><span class="dot ${c}"></span>×${n}</span>` : "";
+  }).join("");
+}
+// 指定コンテナ内のマークボタンのカウント表示と選択状態を更新
+function updateFlagBar(barId, id) {
+  const bar = document.getElementById(barId);
+  bar.querySelectorAll(".flag-btn").forEach(b => {
+    const c = b.dataset.flag;
+    const n = flagCount(id, c);
+    b.querySelector(".cnt").textContent = n;
+    b.classList.toggle("active", n > 0);
+  });
+}
+
+// ---- 絞り込み条件の適用 ----
+function passesFilter(q) {
+  const s = stats[q.id] || { seen: 0, correct: 0 };
+  const seen = s.seen;
+  const wrong = s.seen - s.correct;
+
+  const seenOp = document.getElementById("seenOp").value;
+  const seenVal = parseInt(document.getElementById("seenVal").value) || 0;
+  if (seenOp === "gte" && !(seen >= seenVal)) return false;
+  if (seenOp === "lte" && !(seen <= seenVal)) return false;
+
+  const wrongOp = document.getElementById("wrongOp").value;
+  const wrongVal = parseInt(document.getElementById("wrongVal").value) || 0;
+  if (wrongOp === "gte" && !(wrong >= wrongVal)) return false;
+  if (wrongOp === "lte" && !(wrong <= wrongVal)) return false;
+
+  // マーク回数による絞り込み(各色ごとに以上/以下を指定、すべて満たす必要あり)
+  for (const c of FLAG_COLORS) {
+    const op = document.getElementById(c + "Op").value;
+    if (op === "off") continue;
+    const val = parseInt(document.getElementById(c + "Val").value) || 0;
+    const n = flagCount(q.id, c);
+    if (op === "gte" && !(n >= val)) return false;
+    if (op === "lte" && !(n <= val)) return false;
+  }
+  return true;
+}
+
+// ---- 絞り込み結果の件数をライブ表示 ----
+function updateFilterCount() {
+  const cats = selectedCats();
+  const n = QUESTIONS.filter(q => cats.includes(q.cat) && passesFilter(q)).length;
+  document.getElementById("filterCount").textContent = `現在の条件に一致: ${n} 問`;
+}
 
 // ---- 初期化: カテゴリのチェックボックス生成 ----
 function renderCats() {
@@ -196,6 +481,11 @@ function startQuiz() {
     pool = pool.filter(q => stats[q.id] && stats[q.id].seen > stats[q.id].correct);
     if (pool.length === 0) { alert("誤答した問題がありません。まずは通常出題で解いてみましょう。"); return; }
   }
+
+  // 回答回数・間違えた回数・マークによる絞り込み
+  pool = pool.filter(passesFilter);
+  if (pool.length === 0) { alert("絞り込み条件に一致する問題がありません。条件を変更してください。"); return; }
+
   if (document.getElementById("shuffle").checked) shuffleArr(pool);
 
   let num = parseInt(document.getElementById("numQ").value);
@@ -224,6 +514,24 @@ function showQ() {
   });
   document.getElementById("expBox").classList.add("hide");
   document.getElementById("nextBtn").classList.add("hide");
+  renderFlagBar();
+}
+
+// ---- 出題画面のマークバー表示更新 ----
+function renderFlagBar() {
+  const q = session.list[session.idx];
+  updateFlagBar("quizFlagBar", q.id);
+  document.getElementById("quizFlagSeq").innerHTML = flagSeqHtml(q.id);
+}
+
+// ---- 出題画面: マークを加算 / 最後を取消 ----
+function qAddFlag(flag) {
+  addFlagTo(session.list[session.idx].id, flag);
+  renderFlagBar();
+}
+function qUndoFlag() {
+  undoFlagFrom(session.list[session.idx].id);
+  renderFlagBar();
 }
 
 function escapeHtml(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
@@ -236,6 +544,12 @@ function answer(sel) {
     b.disabled = true;
     if (i === correct) b.classList.add("correct");
     if (i === sel && sel !== correct) b.classList.add("wrong");
+    // 各選択肢の解説(正解・不正解いずれも表示)
+    if (q.choiceExp && q.choiceExp[i]) {
+      const cls = (i === correct) ? "ce-ok" : "ce-ng";
+      b.insertAdjacentHTML("afterend",
+        `<div class="choiceExp ${cls}">${i === correct ? "◯ " : "✕ "}${escapeHtml(q.choiceExp[i])}</div>`);
+    }
   });
   const isRight = sel === correct;
   if (isRight) session.correct++;
@@ -245,7 +559,7 @@ function answer(sel) {
   if (!stats[q.id]) stats[q.id] = { seen: 0, correct: 0 };
   stats[q.id].seen++;
   if (isRight) stats[q.id].correct++;
-  localStorage.setItem(LS_STATS, JSON.stringify(stats));
+  persist();
 
   const exp = document.getElementById("expBox");
   exp.innerHTML = (isRight ? "<b class='ok-txt'>正解！</b> " : "<b class='ng-txt'>不正解</b> ")
@@ -303,17 +617,147 @@ function quitQuiz() {
   if (confirm("中断してホームに戻りますか？")) location.reload();
 }
 
+// ---- アプリ終了: サーバを停止し、可能ならタブを閉じる ----
+async function exitApp() {
+  if (!confirm("サーバを終了してアプリを閉じますか？\n(未保存の操作は保存されます)")) return;
+  // 直前の保存(デバウンス中の書き込み)を確実に反映させる
+  if (apiAvailable) {
+    clearTimeout(_saveTimer);
+    try {
+      await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stats, flags })
+      });
+      await fetch("/api/shutdown", { method: "POST" });
+    } catch (e) { /* サーバは既に停止済みの可能性 */ }
+  }
+  // 画面を「終了しました」に差し替え
+  document.body.innerHTML =
+    '<div class="wrap"><div class="card" style="text-align:center;">' +
+    '<h1>👋 お疲れさまでした</h1>' +
+    '<p>サーバを終了しました。学習データは progress.json に保存されています。</p>' +
+    '<p class="mini">このタブは閉じて構いません。' +
+    '自動で閉じない場合は手動で閉じてください。</p>' +
+    '<button class="btn-primary" onclick="window.close()">タブを閉じる</button>' +
+    '</div></div>';
+  // スクリプトで開いたタブなら閉じられる。手動で開いたタブはブラウザ仕様で閉じられないことがある。
+  window.close();
+}
+
 function resetStats() {
-  if (confirm("すべての成績・解答履歴を削除します。よろしいですか？")) {
-    localStorage.removeItem(LS_STATS);
+  if (confirm("すべての成績・解答履歴を削除します。よろしいですか？（マークも削除されます）")) {
     stats = {};
+    flags = {};
+    localStorage.removeItem(LS_STATS);
+    localStorage.removeItem(LS_FLAGS);
+    persist();
     renderStats();
+    updateFilterCount();
   }
 }
 
-// 初期描画
-renderCats();
-renderStats();
+// ============ 問題一覧(ブラウズ)モード ============
+let bdCurrentId = null;
+
+function openBrowse() {
+  document.getElementById("home").classList.add("hide");
+  document.getElementById("browse").classList.remove("hide");
+  // 分野セレクト初期化(初回のみ)
+  const sel = document.getElementById("browseCat");
+  if (sel.options.length === 0) {
+    sel.insertAdjacentHTML("beforeend", `<option value="all">すべての分野</option>`);
+    for (const [key, name] of Object.entries(window.CATEGORIES)) {
+      sel.insertAdjacentHTML("beforeend", `<option value="${key}">${name}</option>`);
+    }
+    sel.addEventListener("change", renderQList);
+  }
+  renderQList();
+}
+function closeBrowse() {
+  document.getElementById("browse").classList.add("hide");
+  document.getElementById("home").classList.remove("hide");
+  renderStats();
+  updateFilterCount();
+}
+
+function renderQList() {
+  const cat = document.getElementById("browseCat").value;
+  const list = QUESTIONS.filter(q => cat === "all" || q.cat === cat);
+  document.getElementById("browseCount").textContent = `${list.length} 問`;
+  const box = document.getElementById("qlist");
+  box.innerHTML = "";
+  list.forEach(q => {
+    const short = q.q.split("\n")[0];
+    box.insertAdjacentHTML("beforeend",
+      `<button class="qlist-item" onclick="showBrowseDetail(${q.id})">
+         <span class="qnum">No.${q.id}</span>
+         <span class="qsummary">${escapeHtml(short)}</span>
+         <span class="qmark">${flagCountHtml(q.id)}</span>
+       </button>`);
+  });
+}
+
+function showBrowseDetail(id) {
+  const q = QUESTIONS.find(x => x.id === id);
+  if (!q) return;
+  bdCurrentId = id;
+  document.getElementById("browse").classList.add("hide");
+  document.getElementById("browseDetail").classList.remove("hide");
+  document.getElementById("bdTag").textContent = window.CATEGORIES[q.cat] + " ／ No." + q.id;
+  document.getElementById("bdText").textContent = q.q;
+
+  const box = document.getElementById("bdChoices");
+  box.innerHTML = "";
+  q.choices.forEach((c, i) => {
+    const isCorrect = i === q.answer;
+    box.insertAdjacentHTML("beforeend",
+      `<button class="choice${isCorrect ? " correct" : ""}" disabled>${String.fromCharCode(65 + i)}. ${escapeHtml(c)}</button>`);
+    if (q.choiceExp && q.choiceExp[i]) {
+      const cls = isCorrect ? "ce-ok" : "ce-ng";
+      box.insertAdjacentHTML("beforeend",
+        `<div class="choiceExp ${cls}">${isCorrect ? "◯ " : "✕ "}${escapeHtml(q.choiceExp[i])}</div>`);
+    }
+  });
+  document.getElementById("bdExp").innerHTML =
+    "正解は <b>" + String.fromCharCode(65 + q.answer) + "</b>。<br>" + escapeHtml(q.exp);
+
+  renderBdFlagBar();
+  window.scrollTo(0, 0);
+}
+
+function renderBdFlagBar() {
+  updateFlagBar("bdFlagBar", bdCurrentId);
+  document.getElementById("bdFlagSeq").innerHTML = flagSeqHtml(bdCurrentId);
+}
+function bdAddFlag(flag) {
+  if (bdCurrentId == null) return;
+  addFlagTo(bdCurrentId, flag);
+  renderBdFlagBar();
+}
+function bdUndoFlag() {
+  if (bdCurrentId == null) return;
+  undoFlagFrom(bdCurrentId);
+  renderBdFlagBar();
+}
+
+function backToList() {
+  document.getElementById("browseDetail").classList.add("hide");
+  document.getElementById("browse").classList.remove("hide");
+  renderQList();
+}
+
+// 初期化: データ読込 → 旧形式マークの移行 → 描画
+(async function init() {
+  await loadData();
+  // マークは各問題ごとに「押した順の配列」で保持。旧形式(単一文字列)からの移行。
+  for (const k in flags) { if (typeof flags[k] === "string") flags[k] = [flags[k]]; }
+  renderCats();
+  renderStats();
+  updateFilterCount();
+  // 絞り込み条件やカテゴリの変更で件数を更新
+  document.getElementById("home").addEventListener("change", updateFilterCount);
+})();
 </script>
 </body>
 </html>

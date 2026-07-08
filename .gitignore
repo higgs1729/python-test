@@ -2,3 +2,8 @@
 Thumbs.db
 .DS_Store
 .vscode/
+
+# 学習データ(個人の成績・マーク)
+progress.json
+progress.json.tmp
+__pycache__/
