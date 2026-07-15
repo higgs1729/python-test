@@ -169,6 +169,12 @@
   th { color:var(--muted); font-weight:600; }
   a { color:var(--primary); }
   .hide { display:none; }
+
+  /* ---- modal ---- */
+  .modal { position:fixed; inset:0; z-index:50; display:flex; align-items:flex-start; justify-content:center; padding:24px 16px; overflow:auto; }
+  .modal.hide { display:none; }
+  .modal-backdrop { position:fixed; inset:0; background:rgba(15,23,42,.55); }
+  .modal-panel { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; max-width:640px; width:100%; max-height:calc(100vh - 48px); overflow:auto; }
 </style>
 </head>
 <body>
@@ -196,6 +202,11 @@
         </div>
       </div>
       <div class="chips" id="catGrid"></div>
+
+      <div class="row spread" style="margin-top:14px;">
+        <span class="label">難易度を選ぶ</span>
+      </div>
+      <div class="chips" id="levelGrid"></div>
 
       <div class="row spread" style="margin-top:18px;">
         <label class="opt">出題数
@@ -270,6 +281,10 @@
         <span class="tag" id="qTag"></span>
       </div>
       <div class="progress-bar"><div id="qBar" style="width:0%"></div></div>
+      <div class="row spread" style="margin-bottom:10px;">
+        <span class="mini" id="qAcc"></span>
+        <button class="btn-sm btn-ghost" onclick="openHistory()">📋 解答履歴</button>
+      </div>
       <div class="qtext" id="qText"></div>
       <div id="choices"></div>
       <div class="exp hide" id="expBox"></div>
@@ -301,6 +316,10 @@
       <div class="filter-row" style="margin-top:14px;">
         <span class="lbl">分野で絞込</span>
         <select id="browseCat"></select>
+      </div>
+      <div class="filter-row">
+        <span class="lbl">難易度で絞込</span>
+        <select id="browseLevel"></select>
       </div>
       <div class="mini" id="browseCount" style="margin:10px 0;"></div>
       <div id="qlist"></div>
@@ -343,6 +362,27 @@
     <div class="row">
       <button class="btn-primary" onclick="location.reload()">ホームに戻る</button>
       <button onclick="retryWrong()">誤答した問題だけ復習</button>
+    </div>
+  </div>
+
+  <!-- ===== 今回の解答履歴(ポップアップ) ===== -->
+  <div id="historyModal" class="modal hide">
+    <div class="modal-backdrop" onclick="closeHistory()"></div>
+    <div class="modal-panel">
+      <div class="row spread">
+        <span class="label">今回の解答履歴</span>
+        <button class="btn-sm btn-ghost" onclick="closeHistory()">✕ 閉じる</button>
+      </div>
+      <div id="historyListView" style="margin-top:10px;">
+        <div id="historyList"></div>
+      </div>
+      <div id="historyDetailView" class="hide" style="margin-top:10px;">
+        <button class="btn-sm" style="margin-bottom:10px;" onclick="backToHistoryList()">◀ 履歴一覧へ戻る</button>
+        <div class="qmeta"><span></span><span class="tag" id="histTag"></span></div>
+        <div class="qtext" id="histText" style="margin-top:8px;"></div>
+        <div id="histChoices"></div>
+        <div class="exp" id="histExp" style="margin-top:12px;"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -484,7 +524,8 @@ function passesFilter(q) {
 
 function updateFilterCount() {
   const cats = selectedCats();
-  const n = QUESTIONS.filter(q => cats.includes(q.cat) && passesFilter(q)).length;
+  const levels = selectedLevels();
+  const n = QUESTIONS.filter(q => cats.includes(q.cat) && levels.includes(q.level) && passesFilter(q)).length;
   document.getElementById("filterCount").textContent = `現在の条件に一致: ${n} 問`;
 }
 
@@ -505,6 +546,24 @@ function selectAll(v) {
 }
 function selectedCats() {
   return [...document.querySelectorAll("#catGrid .chip.on")].map(c => c.dataset.cat);
+}
+
+// ---- 難易度チップ ----
+const LEVELS = ["A", "B", "C"];
+const LEVEL_LABEL = { A: "A(基礎)", B: "B(応用)", C: "C(発展)" };
+function renderLevels() {
+  const grid = document.getElementById("levelGrid");
+  grid.innerHTML = "";
+  for (const lv of LEVELS) {
+    const n = QUESTIONS.filter(q => q.level === lv).length;
+    if (n === 0) continue;
+    grid.insertAdjacentHTML("beforeend",
+      `<button type="button" class="chip on" data-level="${lv}" onclick="toggleLevel(this)">${LEVEL_LABEL[lv]}<span class="cnt">${n}</span></button>`);
+  }
+}
+function toggleLevel(el) { el.classList.toggle("on"); updateFilterCount(); }
+function selectedLevels() {
+  return [...document.querySelectorAll("#levelGrid .chip.on")].map(c => c.dataset.level);
 }
 
 // ---- 成績サマリ ----
@@ -532,7 +591,9 @@ function shuffleArr(a) {
 function startQuiz() {
   const cats = selectedCats();
   if (cats.length === 0) { alert("分野を1つ以上選択してください。"); return; }
-  let pool = QUESTIONS.filter(q => cats.includes(q.cat));
+  const levels = selectedLevels();
+  if (levels.length === 0) { alert("難易度を1つ以上選択してください。"); return; }
+  let pool = QUESTIONS.filter(q => cats.includes(q.cat) && levels.includes(q.level));
 
   if (document.getElementById("wrongOnly").checked) {
     pool = pool.filter(q => stats[q.id] && stats[q.id].seen > stats[q.id].correct);
@@ -572,6 +633,16 @@ function showQ() {
   document.getElementById("nextBtn").classList.add("hide");
   window.scrollTo(0, 0);
   renderFlagBar();
+  updateQAccuracy();
+}
+
+function updateQAccuracy() {
+  const el = document.getElementById("qAcc");
+  if (!el) return;
+  const answered = session.answers.length;
+  if (answered === 0) { el.textContent = "正答率: -"; return; }
+  const pct = Math.round(session.correct / answered * 100);
+  el.textContent = `正答率: ${session.correct}/${answered} (${pct}%)`;
 }
 
 function renderFlagBar() {
@@ -611,7 +682,7 @@ function answer(sel) {
   });
   const isRight = sel === correct;
   if (isRight) session.correct++;
-  session.answers.push({ id: q.id, cat: q.cat, right: isRight });
+  session.answers.push({ id: q.id, cat: q.cat, right: isRight, sel });
 
   if (!stats[q.id]) stats[q.id] = { seen: 0, correct: 0 };
   stats[q.id].seen++;
@@ -626,6 +697,7 @@ function answer(sel) {
     + choiceExpDetails(q);
   exp.classList.remove("hide");
   document.getElementById("nextBtn").classList.remove("hide");
+  updateQAccuracy();
 }
 
 function nextQ() {
@@ -670,6 +742,66 @@ function retryWrong() {
   document.getElementById("result").classList.add("hide");
   document.getElementById("quiz").classList.remove("hide");
   showQ();
+}
+
+// ---- 今回の解答履歴(ポップアップ) ----
+function openHistory() {
+  renderHistoryList();
+  document.getElementById("historyDetailView").classList.add("hide");
+  document.getElementById("historyListView").classList.remove("hide");
+  document.getElementById("historyModal").classList.remove("hide");
+}
+function closeHistory() {
+  document.getElementById("historyModal").classList.add("hide");
+}
+function renderHistoryList() {
+  const box = document.getElementById("historyList");
+  if (!session || session.answers.length === 0) {
+    box.innerHTML = '<div class="mini">まだ解答した問題がありません。</div>';
+    return;
+  }
+  box.innerHTML = "";
+  session.answers.forEach((a, i) => {
+    const q = QUESTIONS.find(x => x.id === a.id);
+    const short = q ? q.q.split("\n")[0] : "";
+    box.insertAdjacentHTML("beforeend",
+      `<button class="qlist-item" onclick="reviewFromHistory(${i})">
+         <span class="qnum">第${i + 1}問</span>
+         <span class="qsummary">${escapeHtml(short)}</span>
+         <span style="font-weight:600;" class="${a.right ? 'ok-txt' : 'ng-txt'}">${a.right ? "○" : "✕"}</span>
+       </button>`);
+  });
+}
+function reviewFromHistory(idx) {
+  const rec = session.answers[idx];
+  const q = QUESTIONS.find(x => x.id === rec.id);
+  if (!q || !rec) return;
+  document.getElementById("historyListView").classList.add("hide");
+  document.getElementById("historyDetailView").classList.remove("hide");
+  document.getElementById("histTag").textContent =
+    window.CATEGORIES[q.cat] + (q.level ? " ／ 難易度" + q.level : "") + " ／ No." + q.id;
+  document.getElementById("histText").textContent = q.q;
+
+  const box = document.getElementById("histChoices");
+  box.innerHTML = "";
+  q.choices.forEach((c, i) => {
+    const isCorrect = i === q.answer;
+    const isSel = i === rec.sel;
+    let cls = "choice";
+    if (isCorrect) cls += " correct";
+    else if (isSel) cls += " wrong";
+    const mk = isSel ? '<span class="mk">あなたの解答</span>' : "";
+    box.insertAdjacentHTML("beforeend",
+      `<div class="${cls}">${String.fromCharCode(65 + i)}. ${escapeHtml(c)}${mk}</div>`);
+  });
+  document.getElementById("histExp").innerHTML =
+    `正解は <b>${String.fromCharCode(65 + q.answer)}</b>。`
+    + `<div class="exp-main">${escapeHtml(q.exp)}</div>`
+    + choiceExpDetails(q);
+}
+function backToHistoryList() {
+  document.getElementById("historyDetailView").classList.add("hide");
+  document.getElementById("historyListView").classList.remove("hide");
 }
 
 function quitQuiz() {
@@ -735,6 +867,16 @@ function openBrowse() {
     }
     sel.addEventListener("change", renderQList);
   }
+  const levelSel = document.getElementById("browseLevel");
+  if (levelSel.options.length === 0) {
+    levelSel.insertAdjacentHTML("beforeend", `<option value="all">すべての難易度</option>`);
+    for (const lv of LEVELS) {
+      if (QUESTIONS.some(q => q.level === lv)) {
+        levelSel.insertAdjacentHTML("beforeend", `<option value="${lv}">${LEVEL_LABEL[lv]}</option>`);
+      }
+    }
+    levelSel.addEventListener("change", renderQList);
+  }
   renderQList();
 }
 function closeBrowse() {
@@ -746,7 +888,8 @@ function closeBrowse() {
 
 function renderQList() {
   const cat = document.getElementById("browseCat").value;
-  const list = QUESTIONS.filter(q => cat === "all" || q.cat === cat);
+  const level = document.getElementById("browseLevel").value;
+  const list = QUESTIONS.filter(q => (cat === "all" || q.cat === cat) && (level === "all" || q.level === level));
   document.getElementById("browseCount").textContent = `${list.length} 問`;
   const box = document.getElementById("qlist");
   box.innerHTML = "";
@@ -804,6 +947,7 @@ function backToList() {
   await loadData();
   for (const k in flags) { if (typeof flags[k] === "string") flags[k] = [flags[k]]; }
   renderCats();
+  renderLevels();
   renderStats();
   updateFilterCount();
   document.getElementById("home").addEventListener("change", updateFilterCount);
