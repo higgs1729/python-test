@@ -26,11 +26,13 @@ class Api(Storage):
     """JSに公開するAPI: load()/save()(Storage) に close() を追加。"""
 
     def __init__(self):
-        self.window = None
+        # 先頭アンダースコアで pywebview のJS公開対象から除外する
+        # (public だと Window オブジェクトが再帰的に展開されてエラーになる)
+        self._window = None
 
     def close(self):
-        if self.window is not None:
-            self.window.destroy()
+        if self._window is not None:
+            self._window.destroy()
 
 
 def main():
@@ -44,7 +46,7 @@ def main():
         height=1000,
         min_size=(600, 700),
     )
-    api.window = window
+    api._window = window
     webview.start()
 
 

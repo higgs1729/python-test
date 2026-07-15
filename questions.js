@@ -26,7 +26,7 @@
 window.QUESTIONS = [
   // ---------- role : データ分析エンジニアの役割 ----------
   {
-    id: 1, cat: "role",
+    id: 1, cat: "role", level: "A",
     q: "データ分析のプロセスにおいて、一般に最も多くの時間を要するとされる工程はどれか。",
     choices: ["データの可視化", "データの取得・前処理(データクレンジング)", "機械学習モデルの学習", "分析結果のレポート作成"],
     answer: 1,
@@ -39,7 +39,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 2, cat: "role",
+    id: 2, cat: "role", level: "A",
     q: "機械学習の学習方法の分類として、正しい組み合わせはどれか。",
     choices: ["教師あり学習・教師なし学習・強化学習", "回帰学習・分類学習・クラスタリング学習",
               "線形学習・非線形学習・深層学習", "バッチ学習・逐次学習・並列学習"],
@@ -53,7 +53,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 3, cat: "role",
+    id: 3, cat: "role", level: "A",
     q: "教師あり学習に分類されるタスクとして正しいものはどれか。",
     choices: ["クラスタリング", "次元削減", "回帰", "アソシエーション分析"],
     answer: 2,
@@ -66,7 +66,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 46, cat: "role",
+    id: 46, cat: "role", level: "A",
     q: "データ分析エンジニアの役割に関する記述として、最も適切なものはどれか。",
     choices: ["収集から前処理・分析・可視化・共有まで横断的に担う",
               "統計理論の証明を数学的に厳密化することが主業務である",
@@ -82,7 +82,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 47, cat: "role",
+    id: 47, cat: "role", level: "A",
     q: "『再現性のある分析』を実現するうえで最も重要な取り組みはどれか。",
     choices: ["手作業でExcelを都度編集して結果を作る",
               "分析手順をコード(ノートブック等)として残す",
@@ -100,7 +100,7 @@ window.QUESTIONS = [
 
   // ---------- env : 実行環境 / Jupyter ----------
   {
-    id: 4, cat: "env",
+    id: 4, cat: "env", level: "A",
     q: "科学技術計算向けにPython本体と主要ライブラリをまとめて提供するディストリビューションはどれか。",
     choices: ["Anaconda", "Homebrew", "Docker", "Node.js"],
     answer: 0,
@@ -113,7 +113,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 5, cat: "env",
+    id: 5, cat: "env", level: "A",
     q: "Jupyter Notebook上で、コードセルを実行しつつ次のセルに移動するキー操作はどれか。",
     choices: ["Ctrl + Enter", "Shift + Enter", "Alt + Enter", "Tab + Enter"],
     answer: 1,
@@ -126,7 +126,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 6, cat: "env",
+    id: 6, cat: "env", level: "A",
     q: "pipコマンドで指定したパッケージを最新版にアップグレードするオプションはどれか。",
     choices: ["pip install --new numpy", "pip install --latest numpy", "pip install -U numpy", "pip update numpy"],
     answer: 2,
@@ -139,7 +139,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 48, cat: "env",
+    id: 48, cat: "env", level: "A",
     q: "プロジェクトごとに独立したPythonパッケージ環境を作り、依存関係の衝突を避ける仕組みはどれか。",
     choices: ["仮想環境(venv/conda env)", "グローバルインストールの徹底",
               "システムPythonの直接編集", "PATHの削除"],
@@ -153,7 +153,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 49, cat: "env",
+    id: 49, cat: "env", level: "A",
     q: "Jupyter上でセル内の1行がどれくらいの実行時間かを計測するマジックコマンドはどれか。",
     choices: ["%time", "%path", "%list", "%save"],
     answer: 0,
@@ -168,7 +168,7 @@ window.QUESTIONS = [
 
   // ---------- pybase : Pythonの基礎 ----------
   {
-    id: 7, cat: "pybase",
+    id: 7, cat: "pybase", level: "A",
     q: "次のコードの出力として正しいものはどれか。\n\nprint(type([1, 2, 3]))",
     choices: ["<class 'tuple'>", "<class 'list'>", "<class 'set'>", "<class 'array'>"],
     answer: 1,
@@ -181,7 +181,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 8, cat: "pybase",
+    id: 8, cat: "pybase", level: "A",
     q: "リスト a = [0, 1, 2, 3, 4, 5] に対し a[1:4] の結果はどれか。",
     choices: ["[1, 2, 3]", "[1, 2, 3, 4]", "[0, 1, 2, 3]", "[2, 3, 4]"],
     answer: 0,
@@ -194,7 +194,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 9, cat: "pybase",
+    id: 9, cat: "pybase", level: "A",
     q: "内包表記 [x**2 for x in range(5) if x % 2 == 0] の結果はどれか。",
     choices: ["[0, 1, 4, 9, 16]", "[0, 4, 16]", "[0, 2, 4]", "[4, 16]"],
     answer: 1,
@@ -207,7 +207,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 10, cat: "pybase",
+    id: 10, cat: "pybase", level: "A",
     q: "辞書 d = {'a': 1, 'b': 2} に対し、キーが存在しない場合にデフォルト値0を返す安全な取得方法はどれか。",
     choices: ["d['c']", "d.get('c', 0)", "d.default('c', 0)", "d.fetch('c', 0)"],
     answer: 1,
@@ -220,7 +220,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 11, cat: "pybase",
+    id: 11, cat: "pybase", level: "A",
     q: "関数定義で任意個のキーワード引数を受け取る仮引数の書き方はどれか。",
     choices: ["def f(*args):", "def f(**kwargs):", "def f(&kwargs):", "def f(...kwargs):"],
     answer: 1,
@@ -233,7 +233,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 50, cat: "pybase",
+    id: 50, cat: "pybase", level: "A",
     q: "文字列 s = 'data,analysis' に対し s.split(',') の結果はどれか。",
     choices: ["['data', 'analysis']", "'data analysis'", "['d','a','t','a',...]", "('data', 'analysis')"],
     answer: 0,
@@ -246,7 +246,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 51, cat: "pybase",
+    id: 51, cat: "pybase", level: "A",
     q: "例外が発生してもしなくても必ず実行したい後処理を書くブロックはどれか。",
     choices: ["try", "except", "finally", "raise"],
     answer: 2,
@@ -261,7 +261,7 @@ window.QUESTIONS = [
 
   // ---------- math : 数学の基礎 ----------
   {
-    id: 12, cat: "math",
+    id: 12, cat: "math", level: "A",
     q: "データの散らばりを表す指標で、分散の正の平方根として定義されるものはどれか。",
     choices: ["中央値", "標準偏差", "最頻値", "四分位範囲"],
     answer: 1,
@@ -274,7 +274,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 13, cat: "math",
+    id: 13, cat: "math", level: "A",
     q: "2つの変数の直線的な関係の強さを -1〜1 の範囲で表す指標はどれか。",
     choices: ["共分散", "相関係数", "標準偏差", "変動係数"],
     answer: 1,
@@ -287,7 +287,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 14, cat: "math",
+    id: 14, cat: "math", level: "A",
     q: "行列の積 A・B が計算可能となる条件として正しいものはどれか。",
     choices: ["Aの行数とBの列数が等しい", "Aの列数とBの行数が等しい", "AとBが同じ形状", "AとBが正方行列"],
     answer: 1,
@@ -300,7 +300,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 15, cat: "math",
+    id: 15, cat: "math", level: "A",
     q: "関数 f(x) = x^2 の導関数 f'(x) はどれか。",
     choices: ["x", "2x", "x^3/3", "2"],
     answer: 1,
@@ -313,7 +313,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 16, cat: "math",
+    id: 16, cat: "math", level: "A",
     q: "確率において、サイコロを1回振って偶数の目が出る確率はどれか。",
     choices: ["1/6", "1/3", "1/2", "2/3"],
     answer: 2,
@@ -326,7 +326,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 17, cat: "math",
+    id: 17, cat: "math", level: "A",
     q: "正規分布に関する記述として正しいものはどれか。",
     choices: ["平均と中央値と最頻値が一致する左右対称の分布である", "必ず0以上の値しかとらない",
               "分散が大きいほど尖った形になる", "離散型の確率分布である"],
@@ -340,7 +340,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 52, cat: "math",
+    id: 52, cat: "math", level: "A",
     q: "外れ値の影響を受けにくい代表値(中心を表す指標)はどれか。",
     choices: ["平均値", "中央値", "分散", "合計値"],
     answer: 1,
@@ -355,7 +355,7 @@ window.QUESTIONS = [
 
   // ---------- numpy ----------
   {
-    id: 18, cat: "numpy",
+    id: 18, cat: "numpy", level: "A",
     q: "NumPyを慣例的にインポートする書き方はどれか。",
     choices: ["import numpy as nm", "import numpy as np", "import numpy as npy", "from numpy import *"],
     answer: 1,
@@ -368,7 +368,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 19, cat: "numpy",
+    id: 19, cat: "numpy", level: "A",
     q: "0から始まり10未満の連続整数からなる1次元配列を生成する式はどれか。",
     choices: ["np.range(10)", "np.arange(10)", "np.linspace(10)", "np.array(10)"],
     answer: 1,
@@ -381,7 +381,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 20, cat: "numpy",
+    id: 20, cat: "numpy", level: "A",
     q: "2次元配列 a の形状(行数・列数)を取得する属性はどれか。",
     choices: ["a.size", "a.shape", "a.ndim", "a.length"],
     answer: 1,
@@ -394,7 +394,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 21, cat: "numpy",
+    id: 21, cat: "numpy", level: "A",
     q: "配列 a = np.array([1, 2, 3, 4]) に対し a * 2 の結果はどれか。",
     choices: ["array([1, 2, 3, 4, 1, 2, 3, 4])", "array([2, 4, 6, 8])", "エラーになる", "array([2, 2, 2, 2])"],
     answer: 1,
@@ -407,7 +407,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 22, cat: "numpy",
+    id: 22, cat: "numpy", level: "A",
     q: "1次元配列を2行3列に形状変更するメソッドはどれか(要素数は6)。",
     choices: ["a.resize(2, 3)のみ可能", "a.reshape(2, 3)", "a.shape(2, 3)", "a.transpose(2, 3)"],
     answer: 1,
@@ -420,7 +420,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 23, cat: "numpy",
+    id: 23, cat: "numpy", level: "A",
     q: "配列 a のすべての要素の平均を求める式はどれか。",
     choices: ["a.avg()", "a.mean()", "a.average", "np.median(a)"],
     answer: 1,
@@ -433,7 +433,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 24, cat: "numpy",
+    id: 24, cat: "numpy", level: "A",
     q: "np.zeros((2, 3)) が生成する配列として正しいものはどれか。",
     choices: ["要素がすべて1の2×3配列", "要素がすべて0の2×3配列", "要素がすべて0の3×2配列", "空の配列"],
     answer: 1,
@@ -446,7 +446,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 53, cat: "numpy",
+    id: 53, cat: "numpy", level: "A",
     q: "配列 a = np.array([3, 1, 2]) に対し a[a > 1] の結果はどれか。",
     choices: ["array([3, 2])", "array([True, False, True])", "array([1])", "エラーになる"],
     answer: 0,
@@ -461,7 +461,7 @@ window.QUESTIONS = [
 
   // ---------- pandas ----------
   {
-    id: 25, cat: "pandas",
+    id: 25, cat: "pandas", level: "A",
     q: "pandasの2次元の表形式データを扱う主要なデータ構造はどれか。",
     choices: ["Series", "DataFrame", "Panel", "Index"],
     answer: 1,
@@ -474,7 +474,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 26, cat: "pandas",
+    id: 26, cat: "pandas", level: "A",
     q: "DataFrame df の先頭5行を表示するメソッドはどれか。",
     choices: ["df.top()", "df.head()", "df.first(5)", "df.begin()"],
     answer: 1,
@@ -487,7 +487,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 27, cat: "pandas",
+    id: 27, cat: "pandas", level: "A",
     q: "DataFrame df の各数値列について件数・平均・標準偏差・四分位数などの要約統計量を一括表示するメソッドはどれか。",
     choices: ["df.info()", "df.describe()", "df.summary()", "df.stats()"],
     answer: 1,
@@ -500,7 +500,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 28, cat: "pandas",
+    id: 28, cat: "pandas", level: "A",
     q: "ラベル(行名・列名)を指定してDataFrameの要素を参照するインデクサはどれか。",
     choices: ["df.iloc[]", "df.loc[]", "df.at_label[]", "df.get[]"],
     answer: 1,
@@ -513,7 +513,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 29, cat: "pandas",
+    id: 29, cat: "pandas", level: "A",
     q: "DataFrameの各列の欠損値の有無を真偽値で返すメソッドはどれか。",
     choices: ["df.isnull()", "df.isempty()", "df.hasnan()", "df.missing()"],
     answer: 0,
@@ -526,7 +526,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 30, cat: "pandas",
+    id: 30, cat: "pandas", level: "A",
     q: "指定した列の値でグループ化し集計を行うメソッドはどれか。",
     choices: ["df.cluster()", "df.groupby()", "df.aggregate_by()", "df.partition()"],
     answer: 1,
@@ -539,7 +539,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 31, cat: "pandas",
+    id: 31, cat: "pandas", level: "A",
     q: "欠損値を含む行を削除するメソッドはどれか。",
     choices: ["df.dropna()", "df.fillna()", "df.removena()", "df.delete()"],
     answer: 0,
@@ -552,7 +552,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 32, cat: "pandas",
+    id: 32, cat: "pandas", level: "A",
     q: "2つのDataFrameを共通のキー列で結合(SQLのJOIN相当)するメソッドはどれか。",
     choices: ["pd.concat()", "pd.merge()", "pd.join_key()", "pd.union()"],
     answer: 1,
@@ -565,7 +565,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 54, cat: "pandas",
+    id: 54, cat: "pandas", level: "A",
     q: "DataFrame df の 'age' 列だけを取り出す書き方として正しいものはどれか。",
     choices: ["df->age", "df['age']", "df::age", "df.column(age)"],
     answer: 1,
@@ -580,7 +580,7 @@ window.QUESTIONS = [
 
   // ---------- plot : Matplotlib ----------
   {
-    id: 33, cat: "plot",
+    id: 33, cat: "plot", level: "A",
     q: "Matplotlibのpyplotモジュールを慣例的にインポートする書き方はどれか。",
     choices: ["import matplotlib as plt", "import matplotlib.pyplot as plt",
               "from matplotlib import plot as plt", "import pyplot as plt"],
@@ -594,7 +594,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 34, cat: "plot",
+    id: 34, cat: "plot", level: "A",
     q: "2変数の分布を点で表し、相関の傾向を見るのに適したグラフはどれか。",
     choices: ["棒グラフ(bar)", "散布図(scatter)", "円グラフ(pie)", "ヒストグラム(hist)"],
     answer: 1,
@@ -607,7 +607,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 35, cat: "plot",
+    id: 35, cat: "plot", level: "A",
     q: "1つの連続変数の度数分布(データの分布)を表示するのに適したグラフを描く関数はどれか。",
     choices: ["plt.plot()", "plt.hist()", "plt.pie()", "plt.bar()"],
     answer: 1,
@@ -620,7 +620,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 55, cat: "plot",
+    id: 55, cat: "plot", level: "A",
     q: "作成したグラフに横軸のラベルを付ける関数はどれか。",
     choices: ["plt.xlabel()", "plt.axis()", "plt.grid()", "plt.legend()"],
     answer: 0,
@@ -633,7 +633,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 56, cat: "plot",
+    id: 56, cat: "plot", level: "A",
     q: "描いたグラフを画面に表示する関数はどれか。",
     choices: ["plt.draw_now()", "plt.show()", "plt.render()", "plt.display()"],
     answer: 1,
@@ -648,7 +648,7 @@ window.QUESTIONS = [
 
   // ---------- ml : 機械学習(scikit-learn) ----------
   {
-    id: 36, cat: "ml",
+    id: 36, cat: "ml", level: "A",
     q: "scikit-learnで、学習データとテストデータに分割する関数はどれか。",
     choices: ["split_data()", "train_test_split()", "cross_split()", "data_partition()"],
     answer: 1,
@@ -661,7 +661,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 37, cat: "ml",
+    id: 37, cat: "ml", level: "A",
     q: "scikit-learnの推定器(Estimator)でモデルを学習させる共通メソッドはどれか。",
     choices: ["model.train()", "model.fit()", "model.learn()", "model.build()"],
     answer: 1,
@@ -674,7 +674,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 38, cat: "ml",
+    id: 38, cat: "ml", level: "A",
     q: "教師なし学習であり、データを類似したグループに分ける手法はどれか。",
     choices: ["線形回帰", "ロジスティック回帰", "k-means(クラスタリング)", "決定木分類"],
     answer: 2,
@@ -687,7 +687,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 39, cat: "ml",
+    id: 39, cat: "ml", level: "A",
     q: "分類モデルの評価指標で、『予測が正しかった割合』を表す最も基本的な指標はどれか。",
     choices: ["決定係数(R^2)", "正解率(Accuracy)", "平均二乗誤差(MSE)", "シルエット係数"],
     answer: 1,
@@ -700,7 +700,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 40, cat: "ml",
+    id: 40, cat: "ml", level: "A",
     q: "学習データには高精度だが未知データで精度が低下する現象を何というか。",
     choices: ["アンダーフィッティング", "オーバーフィッティング(過学習)", "正規化", "次元削減"],
     answer: 1,
@@ -713,7 +713,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 41, cat: "ml",
+    id: 41, cat: "ml", level: "A",
     q: "連続値を予測する教師あり学習のタスクはどれか。",
     choices: ["分類", "回帰", "クラスタリング", "次元削減"],
     answer: 1,
@@ -726,7 +726,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 42, cat: "ml",
+    id: 42, cat: "ml", level: "A",
     q: "モデルの汎化性能をより信頼性高く評価するため、データを複数分割して評価を繰り返す手法はどれか。",
     choices: ["グリッドサーチ", "交差検証(クロスバリデーション)", "標準化", "アンサンブル学習"],
     answer: 1,
@@ -739,7 +739,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 43, cat: "ml",
+    id: 43, cat: "ml", level: "A",
     q: "特徴量ごとにスケールが大きく異なる場合に、平均0・分散1へ変換する前処理はどれか。",
     choices: ["標準化(StandardScaler)", "one-hotエンコーディング", "主成分分析", "ラベルエンコーディング"],
     answer: 0,
@@ -752,7 +752,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 57, cat: "ml",
+    id: 57, cat: "ml", level: "A",
     q: "回帰モデルの当てはまりの良さを0〜1(最大1)で表す代表的な指標はどれか。",
     choices: ["決定係数(R^2)", "正解率(Accuracy)", "適合率(Precision)", "再現率(Recall)"],
     answer: 0,
@@ -767,7 +767,7 @@ window.QUESTIONS = [
 
   // ---------- data : データ収集と加工 ----------
   {
-    id: 44, cat: "data",
+    id: 44, cat: "data", level: "A",
     q: "カテゴリ変数を、各カテゴリを0/1の列に展開して数値化する手法はどれか。",
     choices: ["正規化", "one-hotエンコーディング", "標準化", "ビニング"],
     answer: 1,
@@ -780,7 +780,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 45, cat: "data",
+    id: 45, cat: "data", level: "A",
     q: "CSVファイルをDataFrameとして読み込むpandasの関数はどれか。",
     choices: ["pd.load_csv()", "pd.read_csv()", "pd.open_csv()", "pd.import_csv()"],
     answer: 1,
@@ -793,7 +793,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 58, cat: "data",
+    id: 58, cat: "data", level: "A",
     q: "連続値の年齢を『10代・20代・30代…』のような区間カテゴリに変換する処理を何というか。",
     choices: ["ビニング(離散化)", "標準化", "正規化", "エンコーディング"],
     answer: 0,
@@ -806,7 +806,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 59, cat: "data",
+    id: 59, cat: "data", level: "A",
     q: "Webページ上のHTMLから必要なデータを抽出して収集する行為を一般に何と呼ぶか。",
     choices: ["Webスクレイピング", "シリアライズ", "ハッシュ化", "リファクタリング"],
     answer: 0,
@@ -819,7 +819,7 @@ window.QUESTIONS = [
     ]
   },
   {
-    id: 60, cat: "data",
+    id: 60, cat: "data", level: "A",
     q: "同じ意味だが表記が異なるデータ(例: '東京都'と'東京')を統一する加工を一般に何と呼ぶか。",
     choices: ["名寄せ / 表記ゆれの統一", "次元削減", "交差検証", "ブロードキャスト"],
     answer: 0,
@@ -829,6 +829,845 @@ window.QUESTIONS = [
       "次元削減は特徴量の数を減らす手法で、表記の統一ではない。",
       "交差検証はモデル評価の手法で、データの表記統一とは無関係。",
       "ブロードキャストはNumPyの配列演算の仕組みで、表記統一ではない。"
+    ]
+  },
+
+  // ============================================================
+  //  第1弾 追加問題 (id 61-120 / 難易度A)
+  // ============================================================
+
+  // ---------- role : データ分析エンジニアの役割 ----------
+  {
+    id: 61, cat: "role", level: "A",
+    q: "データ分析の一般的なプロセスの順序として最も適切なものはどれか。",
+    choices: ["モデル構築 → データ収集 → 課題設定 → 評価",
+              "課題設定 → データ収集・前処理 → 分析・モデル構築 → 評価・共有",
+              "可視化 → 課題設定 → データ収集 → 前処理",
+              "評価 → モデル構築 → データ収集 → 課題設定"],
+    answer: 1,
+    exp: "分析は『何を解決するか(課題設定)』から始まり、データ収集・前処理、分析・モデル構築、評価・共有へと進むのが基本の流れ。",
+    choiceExp: [
+      "データも課題もない状態でモデル構築から始めることはできない。",
+      "正解。課題設定を起点に収集・前処理・分析・評価と進むのが基本プロセス。",
+      "可視化はデータを取得・加工した後に行う工程で、最初ではない。",
+      "評価は構築したモデルや分析結果に対して行うもので、最初の工程ではない。"
+    ]
+  },
+  {
+    id: 62, cat: "role", level: "A",
+    q: "Pythonがデータ分析分野で広く使われる理由として最も適切なものはどれか。",
+    choices: ["コンパイルが必須で実行速度が常に最速だから",
+              "NumPy・pandas等の豊富な分析ライブラリと簡潔な文法を持つから",
+              "Webブラウザ上でしか動作しないから",
+              "データ分析専用言語で他用途には使えないから"],
+    answer: 1,
+    exp: "Pythonは文法が簡潔で学びやすく、NumPy・pandas・scikit-learnなど分析ライブラリのエコシステムが充実しているため広く使われる。",
+    choiceExp: [
+      "Pythonはインタプリタ型言語で、実行速度が常に最速というわけではない。",
+      "正解。豊富なライブラリ群と読みやすい文法が採用の主な理由。",
+      "PythonはOS上で直接動作する汎用言語で、ブラウザ専用ではない。",
+      "PythonはWeb開発や自動化にも使われる汎用言語であり、分析専用ではない。"
+    ]
+  },
+  {
+    id: 63, cat: "role", level: "A",
+    q: "『構造化データ』の例として最も適切なものはどれか。",
+    choices: ["行と列で整理された売上のCSVファイル", "会議の録音音声",
+              "SNSに投稿された自由記述の文章", "スマートフォンで撮影した写真"],
+    answer: 0,
+    exp: "構造化データは行・列など決まった形式で整理されたデータ。音声・画像・自由記述テキストは非構造化データの代表例。",
+    choiceExp: [
+      "正解。表形式(行×列)に整理されたCSVは構造化データの典型。",
+      "音声データは決まった表形式を持たない非構造化データ。",
+      "自由記述の文章は形式が定まらない非構造化データ。",
+      "画像データも表形式ではない非構造化データに分類される。"
+    ]
+  },
+
+  // ---------- env : 実行環境 / Jupyter ----------
+  {
+    id: 64, cat: "env", level: "A",
+    q: "現在の環境にインストール済みのパッケージ一覧を『パッケージ名==バージョン』形式で出力するpipコマンドはどれか。",
+    choices: ["pip freeze", "pip show", "pip search", "pip check"],
+    answer: 0,
+    exp: "pip freezeは requirements.txt にそのまま使える形式で一覧を出力する。pip listも一覧表示だが形式が異なる。",
+    choiceExp: [
+      "正解。pip freeze は『名前==バージョン』形式で出力し、requirements.txt作成に使える。",
+      "pip show は指定した1つのパッケージの詳細情報を表示するコマンド。",
+      "pip search はパッケージ検索用(現在は無効化されている)。",
+      "pip check は依存関係の整合性を検査するコマンドで、一覧出力ではない。"
+    ]
+  },
+  {
+    id: 65, cat: "env", level: "A",
+    q: "標準ライブラリだけでプロジェクト用の仮想環境を作成するコマンドはどれか。",
+    choices: ["python -m venv myenv", "python -m virtualbox myenv",
+              "pip install venv myenv", "python --env myenv"],
+    answer: 0,
+    exp: "venvは標準ライブラリのモジュールで、`python -m venv 環境名` で仮想環境を作成できる。",
+    choiceExp: [
+      "正解。venvモジュールを -m で実行して仮想環境を作る。",
+      "virtualboxはPCの仮想化ソフトで、Pythonの仮想環境とは別物。",
+      "venvは標準同梱でありpip installする対象ではなく、この構文も誤り。",
+      "--env というオプションはpythonコマンドに存在しない。"
+    ]
+  },
+  {
+    id: 66, cat: "env", level: "A",
+    q: "Jupyter Notebookで、説明文や見出しを記述するために使うセルの種類はどれか。",
+    choices: ["Codeセル", "Markdownセル", "Rawセル", "Outputセル"],
+    answer: 1,
+    exp: "Markdownセルには見出し・箇条書き・数式などの説明文を記述できる。コードはCodeセルに書く。",
+    choiceExp: [
+      "Codeセルは実行するプログラムを書くセル。",
+      "正解。Markdownセルに説明文・見出しを記述する。",
+      "Rawセルは変換されない生テキスト用で、整形された説明文には使わない。",
+      "Outputセルというセル種別は存在しない(出力はCodeセルの実行結果)。"
+    ]
+  },
+  {
+    id: 67, cat: "env", level: "A",
+    q: "Jupyterのマジックコマンド %timeit の説明として正しいものはどれか。",
+    choices: ["処理を複数回実行して実行時間の統計をとる",
+              "処理を1回だけ実行して時間を表示する",
+              "現在時刻を表示する",
+              "タイムゾーンを設定する"],
+    answer: 0,
+    exp: "%timeitは対象を自動的に複数回実行し、平均・標準偏差付きで実行時間を計測する。1回計測は%time。",
+    choiceExp: [
+      "正解。%timeitは繰り返し実行して信頼性の高い時間統計を出す。",
+      "1回だけの計測は %time。%timeitは複数回実行する。",
+      "現在時刻の表示はマジックコマンドの機能ではない(datetime等を使う)。",
+      "タイムゾーン設定の機能はない。"
+    ]
+  },
+
+  // ---------- pybase : Pythonの基礎 ----------
+  {
+    id: 68, cat: "pybase", level: "A",
+    q: "リストをループしながら『インデックスと要素』を同時に取得する組み込み関数はどれか。",
+    choices: ["zip()", "enumerate()", "range()", "map()"],
+    answer: 1,
+    exp: "for i, v in enumerate(lst): の形でインデックスと要素を同時に取り出せる。",
+    choiceExp: [
+      "zip()は複数のイテラブルを並行して束ねる関数で、インデックスは付かない。",
+      "正解。enumerate()が(インデックス, 要素)の組を返す。",
+      "range()は数列を作る関数で、要素とインデックスの同時取得ではない。",
+      "map()は各要素に関数を適用する関数。"
+    ]
+  },
+  {
+    id: 69, cat: "pybase", level: "A",
+    q: "変数 name = 'Tokyo' を埋め込んで 'Hello, Tokyo!' と出力するf-stringの書き方はどれか。",
+    choices: ["print(f'Hello, {name}!')", "print('Hello, %name%!')",
+              "print('Hello, $name!')", "print(f'Hello, name!')"],
+    answer: 0,
+    exp: "f-stringは文字列の前にfを付け、{変数名}で値を埋め込む(Python 3.6以降)。",
+    choiceExp: [
+      "正解。f'...{name}...' で変数の値が埋め込まれる。",
+      "%name% はWindowsバッチの記法で、Pythonの文字列展開ではない。",
+      "$name はシェルやPerlの記法で、Pythonでは展開されない。",
+      "f-stringでも{}で囲まなければただの文字列'name'のまま出力される。"
+    ]
+  },
+  {
+    id: 70, cat: "pybase", level: "A",
+    q: "タプル t = (1, 2, 3) に対し t[0] = 9 を実行した結果はどれか。",
+    choices: ["(9, 2, 3)になる", "TypeErrorが発生する", "(1, 2, 3, 9)になる", "何も起こらない"],
+    answer: 1,
+    exp: "タプルはイミュータブル(変更不可)なため、要素への代入はTypeErrorになる。変更したい場合はリストを使う。",
+    choiceExp: [
+      "リストなら要素を書き換えられるが、タプルは変更できない。",
+      "正解。タプルは変更不可のためTypeError('does not support item assignment')となる。",
+      "要素の追加もタプルではできない(新しいタプルの生成は可能)。",
+      "エラーが発生するため『何も起こらない』は誤り。"
+    ]
+  },
+  {
+    id: 71, cat: "pybase", level: "A",
+    q: "リスト [1, 2, 2, 3, 3, 3] から重複を除いた集合を得る式はどれか。",
+    choices: ["set([1, 2, 2, 3, 3, 3])", "unique([1, 2, 2, 3, 3, 3])",
+              "list.distinct([1, 2, 2, 3, 3, 3])", "dedupe([1, 2, 2, 3, 3, 3])"],
+    answer: 0,
+    exp: "set()は重複を許さないコレクションで、リストを渡すと重複が自動的に取り除かれる。",
+    choiceExp: [
+      "正解。set化すると重複が除かれ {1, 2, 3} になる。",
+      "uniqueという組み込み関数はPythonにない(np.uniqueはNumPy)。",
+      "distinctというメソッドはリストに存在しない。",
+      "dedupeという組み込み関数は存在しない。"
+    ]
+  },
+  {
+    id: 72, cat: "pybase", level: "A",
+    q: "list(range(1, 10, 3)) の結果はどれか。",
+    choices: ["[1, 4, 7]", "[1, 4, 7, 10]", "[3, 6, 9]", "[1, 3, 5, 7, 9]"],
+    answer: 0,
+    exp: "range(start, stop, step)は1から3ずつ増え、stop=10は含まないので1, 4, 7。",
+    choiceExp: [
+      "正解。1から3刻みで進み、10未満なので[1, 4, 7]。",
+      "stopの10は含まれない(次の値10は範囲外)。",
+      "startは1なので3からは始まらない。",
+      "step=3なので2刻みの奇数列にはならない。"
+    ]
+  },
+  {
+    id: 73, cat: "pybase", level: "A",
+    q: "リスト a = [1, 2] に対し a.append([3, 4]) と a.extend([3, 4]) の違いとして正しいものはどれか。",
+    choices: ["どちらも [1, 2, 3, 4] になる",
+              "appendは [1, 2, [3, 4]]、extendは [1, 2, 3, 4] になる",
+              "appendは [1, 2, 3, 4]、extendは [1, 2, [3, 4]] になる",
+              "どちらも [1, 2, [3, 4]] になる"],
+    answer: 1,
+    exp: "appendは引数を1つの要素としてそのまま追加、extendは要素を展開して個々に追加する。",
+    choiceExp: [
+      "appendはリストごと1要素として追加するため同じ結果にはならない。",
+      "正解。appendは入れ子のまま追加、extendは展開して追加する。",
+      "appendとextendの動作が逆になっている。",
+      "extendは展開して追加するため入れ子にはならない。"
+    ]
+  },
+  {
+    id: 74, cat: "pybase", level: "A",
+    q: "7 // 2 の結果はどれか。",
+    choices: ["3.5", "3", "4", "1"],
+    answer: 1,
+    exp: "//は切り捨て除算(floor division)で、商の小数部分を切り捨てて3を返す。7 / 2 なら3.5。",
+    choiceExp: [
+      "3.5になるのは通常の除算 / を使ったとき。",
+      "正解。//は小数部を切り捨てるため7//2=3。",
+      "//は四捨五入ではなく切り捨てなので4にはならない。",
+      "1は剰余(7 % 2)の結果で、切り捨て除算の商ではない。"
+    ]
+  },
+
+  // ---------- math : 数学の基礎 ----------
+  {
+    id: 75, cat: "math", level: "A",
+    q: "分散の定義として正しいものはどれか。",
+    choices: ["各データと平均との差(偏差)の2乗の平均", "最大値と最小値の差",
+              "データを昇順に並べた中央の値", "各データの絶対値の合計"],
+    answer: 0,
+    exp: "分散は偏差(各値−平均)を2乗して平均したもの。散らばりが大きいほど値が大きくなる。",
+    choiceExp: [
+      "正解。分散 = 偏差の2乗の平均。",
+      "最大値と最小値の差は『範囲(レンジ)』と呼ばれる別の指標。",
+      "中央の値は中央値(メディアン)で、散らばりの指標ではない。",
+      "絶対値の合計は分散の定義ではない。"
+    ]
+  },
+  {
+    id: 76, cat: "math", level: "A",
+    q: "ベクトル a = (1, 2) と b = (3, 4) の内積はどれか。",
+    choices: ["11", "10", "(3, 8)", "(4, 6)"],
+    answer: 0,
+    exp: "内積は対応する成分の積の和: 1×3 + 2×4 = 3 + 8 = 11。結果はスカラー(単一の数値)になる。",
+    choiceExp: [
+      "正解。1×3 + 2×4 = 11。",
+      "計算誤り。3+8は11であり10ではない。",
+      "(3, 8)は成分ごとの積で、内積はそれらを合計したスカラー。",
+      "(4, 6)は成分ごとの和で、内積ではない。"
+    ]
+  },
+  {
+    id: 77, cat: "math", level: "A",
+    q: "単位行列の説明として正しいものはどれか。",
+    choices: ["対角成分が1で他が0の正方行列。任意の行列に掛けても相手を変えない",
+              "すべての成分が1の行列",
+              "すべての成分が0の行列",
+              "行と列を入れ替えた行列"],
+    answer: 0,
+    exp: "単位行列Iは対角成分1・非対角成分0で、A・I = I・A = A が成り立つ(数の1に相当)。",
+    choiceExp: [
+      "正解。単位行列は数の掛け算における1と同じ役割を持つ。",
+      "全成分1の行列は単位行列ではない(掛けると相手が変わる)。",
+      "全成分0は零行列で、掛けると結果も零行列になる。",
+      "行と列の入れ替えは転置行列の説明。"
+    ]
+  },
+  {
+    id: 78, cat: "math", level: "A",
+    q: "自然対数の底として使われる定数 e のおよその値はどれか。",
+    choices: ["2.718", "3.141", "1.414", "1.618"],
+    answer: 0,
+    exp: "ネイピア数 e ≈ 2.718 は自然対数の底で、指数関数・対数関数の解析で中心的な役割を持つ。",
+    choiceExp: [
+      "正解。e ≈ 2.71828…(ネイピア数)。",
+      "3.141…は円周率π。",
+      "1.414…は√2。",
+      "1.618…は黄金比。"
+    ]
+  },
+  {
+    id: 79, cat: "math", level: "A",
+    q: "5人の中から2人を選ぶ組み合わせの数(5C2)はどれか。",
+    choices: ["10", "20", "25", "7"],
+    answer: 0,
+    exp: "組み合わせ 5C2 = 5!/(2!×3!) = (5×4)/(2×1) = 10。順序を区別する順列5P2なら20。",
+    choiceExp: [
+      "正解。5C2 = (5×4)/2 = 10通り。",
+      "20は順序を区別する順列 5P2 の値。",
+      "25は5×5で、組み合わせの計算ではない。",
+      "7は5+2で、組み合わせの計算ではない。"
+    ]
+  },
+  {
+    id: 80, cat: "math", level: "A",
+    q: "データ x を平均 μ・標準偏差 σ を使って z = (x − μ) / σ に変換する操作を何というか。",
+    choices: ["標準化(zスコア化)", "正規化(min-max)", "対数変換", "離散化"],
+    answer: 0,
+    exp: "平均を引き標準偏差で割る変換が標準化で、変換後は平均0・標準偏差1になる。",
+    choiceExp: [
+      "正解。zスコアへの変換を標準化と呼ぶ。",
+      "min-max正規化は (x−最小)/(最大−最小) で0〜1に収める別の変換。",
+      "対数変換はlogをとる変換で、式が異なる。",
+      "離散化は連続値を区間に区切る処理で、この式とは無関係。"
+    ]
+  },
+  {
+    id: 81, cat: "math", level: "A",
+    q: "『アイスの売上と水難事故は相関があるが、気温という共通要因による』——この例が示す注意点はどれか。",
+    choices: ["相関関係は必ず因果関係を意味する",
+              "相関があっても因果関係があるとは限らない",
+              "因果関係があれば相関は存在しない",
+              "相関係数が1を超えることがある"],
+    answer: 1,
+    exp: "第3の要因(交絡因子)によって見かけの相関が生じることがあり、『相関≠因果』はデータ解釈の基本的注意点。",
+    choiceExp: [
+      "相関は因果を保証しない。この例はまさにその反例。",
+      "正解。共通要因(気温)による見かけの相関で、直接の因果はない。",
+      "因果関係があれば通常は相関も観測される。記述が逆。",
+      "相関係数は定義上 -1〜1 の範囲を超えない。"
+    ]
+  },
+
+  // ---------- numpy ----------
+  {
+    id: 82, cat: "numpy", level: "A",
+    q: "np.linspace(0, 1, 5) の結果はどれか。",
+    choices: ["array([0., 0.25, 0.5, 0.75, 1.])", "array([0., 0.2, 0.4, 0.6, 0.8])",
+              "array([0, 1, 2, 3, 4])", "array([0., 0.5, 1., 1.5, 2.])"],
+    answer: 0,
+    exp: "linspace(start, stop, num)は両端を含めてnum個に等分割する。0〜1を5点なので間隔0.25。",
+    choiceExp: [
+      "正解。両端0と1を含む5点で、間隔は0.25。",
+      "stop=1を含まないと誤解した場合の値。linspaceはデフォルトで終点を含む。",
+      "これはnp.arange(5)の結果。linspaceは指定区間を等分割する。",
+      "区間は0〜1であり、1を超える値は生成されない。"
+    ]
+  },
+  {
+    id: 83, cat: "numpy", level: "A",
+    q: "NumPy配列の要素のデータ型を確認する属性はどれか。",
+    choices: ["a.dtype", "a.type()", "a.datatype", "a.kindof"],
+    answer: 0,
+    exp: "dtypeは配列要素の型(int64, float64など)を保持する属性。NumPy配列は全要素が同一型である点がリストと異なる。",
+    choiceExp: [
+      "正解。a.dtype で要素の型を確認できる。",
+      "type(a)はオブジェクト自体の型(ndarray)を返し、要素型ではない。",
+      "datatypeという属性は存在しない。",
+      "kindofという属性は存在しない。"
+    ]
+  },
+  {
+    id: 84, cat: "numpy", level: "A",
+    q: "3×3の単位行列を生成する関数はどれか。",
+    choices: ["np.eye(3)", "np.ones(3)", "np.unit(3)", "np.diag(3)"],
+    answer: 0,
+    exp: "np.eye(n)はn×nの単位行列(対角1・他0)を生成する。np.identity(n)も同様。",
+    choiceExp: [
+      "正解。np.eye(3)が3×3の単位行列を返す。",
+      "np.ones(3)は全要素1の1次元配列で、単位行列ではない。",
+      "np.unitという関数は存在しない。",
+      "np.diagは対角成分の抽出や対角行列生成に使うが、np.diag(3)では単位行列にならない。"
+    ]
+  },
+  {
+    id: 85, cat: "numpy", level: "A",
+    q: "2次元配列 a に対する a.sum(axis=0) の説明として正しいものはどれか。",
+    choices: ["列ごとの合計(行方向に足し合わせる)", "行ごとの合計(列方向に足し合わせる)",
+              "全要素の合計", "対角成分の合計"],
+    answer: 0,
+    exp: "axis=0は行の軸に沿って(縦方向に)集計するため列ごとの合計になる。axis=1は行ごとの合計。",
+    choiceExp: [
+      "正解。axis=0は縦方向に潰して各列の合計を返す。",
+      "行ごとの合計はaxis=1を指定したとき。",
+      "全要素の合計はaxis指定なしのa.sum()。",
+      "対角成分の合計はnp.trace(a)で求める。"
+    ]
+  },
+  {
+    id: 86, cat: "numpy", level: "A",
+    q: "形状の異なる配列同士の演算で、NumPyが自動的に形状を合わせて計算する仕組みを何というか。",
+    choices: ["ブロードキャスト", "マッピング", "キャスティング", "シリアライズ"],
+    answer: 0,
+    exp: "ブロードキャストは条件を満たす場合に小さい配列を仮想的に拡張して演算する仕組み。スカラーと配列の演算も一例。",
+    choiceExp: [
+      "正解。形状を自動拡張して要素ごとの演算を可能にするのがブロードキャスト。",
+      "マッピングは対応付け一般の用語で、この仕組みの名称ではない。",
+      "キャスティングはデータ型の変換であり、形状合わせではない。",
+      "シリアライズはデータの保存形式への変換で、演算とは無関係。"
+    ]
+  },
+  {
+    id: 87, cat: "numpy", level: "A",
+    q: "np.random.seed(0) のように乱数のシードを固定する主な目的はどれか。",
+    choices: ["乱数の生成を高速化するため", "実行のたびに同じ乱数列を得て結果を再現可能にするため",
+              "より予測不能な乱数を得るため", "乱数の範囲を0〜1に制限するため"],
+    answer: 1,
+    exp: "シードを固定すると同じ乱数列が生成されるため、乱数を含む処理の結果を再現できる。",
+    choiceExp: [
+      "シード固定は速度にはほぼ影響しない。",
+      "正解。同じシードからは同じ乱数列が生成され、再現性が確保できる。",
+      "むしろ逆で、シード固定により乱数列は毎回同じ(予測可能)になる。",
+      "乱数の範囲は生成関数(rand, randn等)で決まり、シードとは無関係。"
+    ]
+  },
+  {
+    id: 88, cat: "numpy", level: "A",
+    q: "NumPy配列のスライス b = a[1:3] を変更したとき、元の配列 a はどうなるか。",
+    choices: ["aも変更される(スライスはビューのため)", "aは変更されない(スライスはコピーのため)",
+              "エラーになる", "aの全要素が0になる"],
+    answer: 0,
+    exp: "NumPyのスライスは元データを共有する『ビュー』を返すため、変更は元配列に反映される。独立させたい場合はcopy()を使う。Pythonリストのスライスがコピーなのと対照的。",
+    choiceExp: [
+      "正解。NumPyのスライスはビューであり、変更が元配列に及ぶ。",
+      "コピーになるのはPythonリストのスライス。NumPyはビューを返す。",
+      "ビューへの代入は正当な操作でエラーにはならない。",
+      "変更したのはスライス範囲のみで、全要素が変わることはない。"
+    ]
+  },
+  {
+    id: 89, cat: "numpy", level: "A",
+    q: "2つの行列 A, B の行列積を計算する書き方として正しいものはどれか。",
+    choices: ["A @ B(またはnp.dot(A, B))", "A * B", "A + B", "A // B"],
+    answer: 0,
+    exp: "@演算子やnp.dot()が行列積。A * Bは要素ごとの積(アダマール積)である点に注意。",
+    choiceExp: [
+      "正解。@(またはnp.dot / np.matmul)が数学的な行列積を計算する。",
+      "*は要素ごとの積で、行列積とは結果が異なる。",
+      "+は要素ごとの和で、積ではない。",
+      "//は要素ごとの切り捨て除算。"
+    ]
+  },
+
+  // ---------- pandas ----------
+  {
+    id: 90, cat: "pandas", level: "A",
+    q: "pandasのSeriesの説明として正しいものはどれか。",
+    choices: ["インデックス(ラベル)付きの1次元データ構造", "行と列を持つ2次元の表",
+              "3次元のパネルデータ", "SQLデータベースへの接続オブジェクト"],
+    answer: 0,
+    exp: "Seriesはラベル付き1次元配列で、DataFrameの1列を取り出したものもSeriesになる。",
+    choiceExp: [
+      "正解。Seriesはインデックスを持つ1次元のデータ構造。",
+      "2次元の表はDataFrame。",
+      "3次元のPanelはすでに廃止されている。",
+      "データベース接続はSeriesの役割ではない。"
+    ]
+  },
+  {
+    id: 91, cat: "pandas", level: "A",
+    q: "DataFrame df の末尾3行を表示する書き方はどれか。",
+    choices: ["df.tail(3)", "df.head(-3)", "df.last3()", "df.bottom(3)"],
+    answer: 0,
+    exp: "tail(n)は末尾n行を返す(デフォルト5行)。先頭はhead(n)。",
+    choiceExp: [
+      "正解。df.tail(3)で末尾3行が得られる。",
+      "head(-3)は『末尾3行を除いた残り』を返すため意味が異なる。",
+      "last3というメソッドは存在しない。",
+      "bottomというメソッドは存在しない。"
+    ]
+  },
+  {
+    id: 92, cat: "pandas", level: "A",
+    q: "DataFrame df の行数と列数を (行数, 列数) のタプルで取得する属性はどれか。",
+    choices: ["df.shape", "df.size", "df.dims", "df.count"],
+    answer: 0,
+    exp: "shapeは(行数, 列数)のタプルを返す。sizeは総要素数、count()は列ごとの非欠損数。",
+    choiceExp: [
+      "正解。df.shapeが(行数, 列数)を返す。",
+      "sizeは行数×列数の総要素数(単一の整数)。",
+      "dimsという属性はpandasにない。",
+      "count()は各列の欠損でない値の個数を返すメソッド。"
+    ]
+  },
+  {
+    id: 93, cat: "pandas", level: "A",
+    q: "Series(またはDataFrameの列)の各値の出現回数を数えるメソッドはどれか。",
+    choices: ["value_counts()", "count_values()", "frequency()", "histogram()"],
+    answer: 0,
+    exp: "value_counts()は値ごとの出現回数を多い順に返す。カテゴリ列の分布確認によく使う。",
+    choiceExp: [
+      "正解。value_counts()が値ごとの件数を返す。",
+      "count_valuesという逆順の名前のメソッドは存在しない。",
+      "frequencyというメソッドは存在しない。",
+      "histogramはpandasのメソッドではない(可視化はhist())。"
+    ]
+  },
+  {
+    id: 94, cat: "pandas", level: "A",
+    q: "DataFrame df を 'price' 列の値の大きい順(降順)に並べ替える書き方はどれか。",
+    choices: ["df.sort_values('price', ascending=False)", "df.sort_values('price')",
+              "df.order_by('price', desc=True)", "df.sort_index('price')"],
+    answer: 0,
+    exp: "sort_values(列名)で並べ替え。ascending=Falseで降順になる(デフォルトは昇順)。",
+    choiceExp: [
+      "正解。ascending=Falseを指定して降順ソートする。",
+      "引数省略時は昇順(小さい順)になる。",
+      "order_byはSQLの構文で、pandasのメソッドではない。",
+      "sort_indexはインデックスで並べ替えるメソッドで、列の値ではない。"
+    ]
+  },
+  {
+    id: 95, cat: "pandas", level: "A",
+    q: "DataFrameの欠損値をすべて0で埋める書き方はどれか。",
+    choices: ["df.fillna(0)", "df.dropna(0)", "df.replace_nan(0)", "df.setna(0)"],
+    answer: 0,
+    exp: "fillna(値)は欠損値を指定した値で補完する。平均値で埋めるdf.fillna(df.mean())のような使い方もある。",
+    choiceExp: [
+      "正解。fillna(0)が欠損をすべて0で埋める。",
+      "dropnaは欠損を含む行・列を『削除』するメソッドで、埋める処理ではない。",
+      "replace_nanというメソッドは存在しない。",
+      "setnaというメソッドは存在しない。"
+    ]
+  },
+  {
+    id: 96, cat: "pandas", level: "A",
+    q: "DataFrame df の列名の一覧を取得する属性はどれか。",
+    choices: ["df.columns", "df.colnames", "df.headers", "df.labels"],
+    answer: 0,
+    exp: "columnsは列名を保持するIndexオブジェクトを返す。行ラベルはdf.index。",
+    choiceExp: [
+      "正解。df.columnsで列名一覧が得られる。",
+      "colnamesはR言語の関数名で、pandasには存在しない。",
+      "headersという属性は存在しない。",
+      "labelsという属性は存在しない。"
+    ]
+  },
+  {
+    id: 97, cat: "pandas", level: "A",
+    q: "df.iloc[0] が返すものはどれか。",
+    choices: ["先頭(0番目)の行", "ラベルが'0'の列", "先頭の列", "最後の行"],
+    answer: 0,
+    exp: "ilocは位置(整数)ベースのインデクサで、iloc[0]は0番目の行をSeriesとして返す。",
+    choiceExp: [
+      "正解。iloc[0]は位置0の行を返す。",
+      "ilocはラベルではなく位置で参照する(ラベル参照はloc)。",
+      "列を位置で取るには df.iloc[:, 0] のように書く。",
+      "最後の行は df.iloc[-1]。"
+    ]
+  },
+
+  // ---------- plot : Matplotlib ----------
+  {
+    id: 98, cat: "plot", level: "A",
+    q: "グラフ全体のタイトルを設定する関数はどれか。",
+    choices: ["plt.title()", "plt.caption()", "plt.header()", "plt.name()"],
+    answer: 0,
+    exp: "plt.title('文字列')でグラフのタイトルを設定する。軸ラベルはxlabel/ylabel。",
+    choiceExp: [
+      "正解。plt.title()がタイトルを設定する。",
+      "captionという関数はpyplotに存在しない。",
+      "headerという関数は存在しない。",
+      "nameという関数は存在しない。"
+    ]
+  },
+  {
+    id: 99, cat: "plot", level: "A",
+    q: "時系列データ(例: 日ごとの売上推移)の変化を表すのに最も適したグラフはどれか。",
+    choices: ["折れ線グラフ", "円グラフ", "散布図", "箱ひげ図"],
+    answer: 0,
+    exp: "時間の経過に伴う値の変化(トレンド)は折れ線グラフ(plt.plot)で表すのが基本。",
+    choiceExp: [
+      "正解。連続する時間軸に沿った変化は折れ線グラフが最適。",
+      "円グラフはある時点の構成比を表すもので、推移には不向き。",
+      "散布図は2変数の関係を見るもので、時系列の推移表現には折れ線が優る。",
+      "箱ひげ図は分布の要約を表すもので、時間推移の表現ではない。"
+    ]
+  },
+  {
+    id: 100, cat: "plot", level: "A",
+    q: "作成したグラフを画像ファイルとして保存する関数はどれか。",
+    choices: ["plt.savefig('graph.png')", "plt.export('graph.png')",
+              "plt.write('graph.png')", "plt.output('graph.png')"],
+    answer: 0,
+    exp: "plt.savefig(ファイル名)でPNG・PDF等の形式で保存できる(拡張子から自動判定)。",
+    choiceExp: [
+      "正解。savefig()がグラフをファイルに保存する。",
+      "exportという関数はpyplotに存在しない。",
+      "writeという関数は存在しない。",
+      "outputという関数は存在しない。"
+    ]
+  },
+  {
+    id: 101, cat: "plot", level: "A",
+    q: "全体に占める各項目の構成比(割合)を表すのに適したグラフはどれか。",
+    choices: ["円グラフ", "散布図", "折れ線グラフ", "ヒストグラム"],
+    answer: 0,
+    exp: "円グラフ(plt.pie)は全体を100%として各項目の割合を扇形で表す。",
+    choiceExp: [
+      "正解。構成比の表現には円グラフ(または帯グラフ)が適する。",
+      "散布図は2変数の関係を見るグラフ。",
+      "折れ線グラフは推移の表現に適し、構成比には不向き。",
+      "ヒストグラムは連続変数の度数分布を表す。"
+    ]
+  },
+  {
+    id: 102, cat: "plot", level: "A",
+    q: "1つの図(Figure)の中に複数のグラフ(Axes)を並べて描画したいときに使う関数はどれか。",
+    choices: ["plt.subplots()", "plt.multiplot()", "plt.gridplot()", "plt.panels()"],
+    answer: 0,
+    exp: "fig, axes = plt.subplots(行数, 列数) で複数のAxesを持つ図を作成できる。",
+    choiceExp: [
+      "正解。subplots()が複数の描画領域(Axes)を並べた図を作る。",
+      "multiplotという関数は存在しない。",
+      "gridplotという関数はpyplotに存在しない。",
+      "panelsという関数は存在しない。"
+    ]
+  },
+  {
+    id: 103, cat: "plot", level: "A",
+    q: "データの中央値・四分位数・外れ値を1つの図で要約して表示するグラフはどれか。",
+    choices: ["箱ひげ図(boxplot)", "円グラフ(pie)", "折れ線グラフ(plot)", "棒グラフ(bar)"],
+    answer: 0,
+    exp: "箱ひげ図は箱で四分位範囲、中央の線で中央値、ひげの外の点で外れ値を表し、分布の要約に適する。",
+    choiceExp: [
+      "正解。箱ひげ図が中央値・四分位数・外れ値を一目で示す。",
+      "円グラフは構成比を表し、分布の要約はできない。",
+      "折れ線グラフは推移を表すもの。",
+      "棒グラフはカテゴリ間の値の比較に使う。"
+    ]
+  },
+
+  // ---------- ml : 機械学習(scikit-learn) ----------
+  {
+    id: 104, cat: "ml", level: "A",
+    q: "scikit-learnで学習済みモデルを使って新しいデータの予測値を得るメソッドはどれか。",
+    choices: ["model.predict(X)", "model.guess(X)", "model.forecast(X)", "model.run(X)"],
+    answer: 0,
+    exp: "fit()で学習した後、predict(X)で予測値を得るのが共通インターフェース。",
+    choiceExp: [
+      "正解。predict()が予測値を返す。",
+      "guessというメソッドは存在しない。",
+      "forecastというメソッドはscikit-learnの共通APIにない。",
+      "runというメソッドは存在しない。"
+    ]
+  },
+  {
+    id: 105, cat: "ml", level: "A",
+    q: "分類モデルの予測結果を『実際の正解 × 予測』の表形式で整理したものを何というか。",
+    choices: ["混同行列(Confusion Matrix)", "相関行列", "単位行列", "距離行列"],
+    answer: 0,
+    exp: "混同行列は真陽性・偽陽性・偽陰性・真陰性の件数を整理した表で、適合率・再現率などの計算の基礎になる。",
+    choiceExp: [
+      "正解。実際と予測のクロス集計表が混同行列。",
+      "相関行列は変数間の相関係数を並べた行列で、予測評価の表ではない。",
+      "単位行列は対角1の数学的な行列。",
+      "距離行列はデータ間の距離を並べたもので、分類評価の表ではない。"
+    ]
+  },
+  {
+    id: 106, cat: "ml", level: "A",
+    q: "『陽性と予測したもののうち、実際に陽性だった割合』を表す評価指標はどれか。",
+    choices: ["適合率(Precision)", "再現率(Recall)", "正解率(Accuracy)", "F値"],
+    answer: 0,
+    exp: "適合率 = TP/(TP+FP)。予測した陽性の『正確さ』を表す。誤検知を減らしたい場面で重視される。",
+    choiceExp: [
+      "正解。適合率は陽性と予測した中の的中率。",
+      "再現率は『実際の陽性のうち見つけられた割合』TP/(TP+FN)。",
+      "正解率は全予測のうち正しかった割合で、陽性予測に限定しない。",
+      "F値は適合率と再現率の調和平均。"
+    ]
+  },
+  {
+    id: 107, cat: "ml", level: "A",
+    q: "『実際に陽性であるもののうち、正しく陽性と予測できた割合』を表す評価指標はどれか。",
+    choices: ["再現率(Recall)", "適合率(Precision)", "特異度", "決定係数"],
+    answer: 0,
+    exp: "再現率 = TP/(TP+FN)。見逃しを減らしたい場面(病気の検出など)で重視される。",
+    choiceExp: [
+      "正解。再現率は実際の陽性をどれだけ拾えたか(見逃しの少なさ)を表す。",
+      "適合率は陽性と『予測した』側を分母とする指標。",
+      "特異度は実際の陰性を正しく陰性と判定できた割合。",
+      "決定係数は回帰モデルの当てはまり指標。"
+    ]
+  },
+  {
+    id: 108, cat: "ml", level: "A",
+    q: "主成分分析(PCA)の主な用途はどれか。",
+    choices: ["情報をなるべく保ちながら特徴量の次元を削減する", "分類の正解ラベルを自動生成する",
+              "欠損値を補完する", "モデルのハイパーパラメータを探索する"],
+    answer: 0,
+    exp: "PCAは分散が最大となる方向(主成分)を見つけ、少ない次元でデータを表現する教師なしの次元削減手法。",
+    choiceExp: [
+      "正解。PCAは高次元データを少数の主成分に圧縮する次元削減手法。",
+      "PCAはラベルを生成しない(教師なし手法)。",
+      "欠損値補完はfillnaや専用の補完手法の役割。",
+      "ハイパーパラメータ探索はグリッドサーチ等の役割。"
+    ]
+  },
+  {
+    id: 109, cat: "ml", level: "A",
+    q: "データを学習用とテスト用に1回だけ分割して評価する方法を何というか。",
+    choices: ["ホールドアウト法", "交差検証", "ブートストラップ法", "グリッドサーチ"],
+    answer: 0,
+    exp: "ホールドアウト法は一部をテスト用に取り置く最も基本的な評価方法。分割を繰り返すのが交差検証。",
+    choiceExp: [
+      "正解。1回の分割で評価するのがホールドアウト法。",
+      "交差検証はk分割して評価を『繰り返す』方法。",
+      "ブートストラップ法は復元抽出でサンプルを繰り返し作る手法。",
+      "グリッドサーチはハイパーパラメータの探索手法で、評価分割の方法ではない。"
+    ]
+  },
+  {
+    id: 110, cat: "ml", level: "A",
+    q: "決定木モデルの特徴として最も適切なものはどれか。",
+    choices: ["条件分岐の構造が可視化でき、予測理由を解釈しやすい",
+              "学習結果を人間が解釈することは不可能である",
+              "数値データには一切適用できない",
+              "必ず他のどの手法よりも高精度になる"],
+    answer: 0,
+    exp: "決定木はif-then形式の分岐で予測するため、木構造を図示して判断根拠を説明しやすいのが長所。",
+    choiceExp: [
+      "正解。分岐条件を辿れば予測理由を説明できる解釈性の高さが特徴。",
+      "決定木はむしろ解釈しやすい手法の代表例。",
+      "数値・カテゴリいずれの特徴量にも適用できる。",
+      "常に最高精度になる手法は存在しない(ノーフリーランチ)。"
+    ]
+  },
+  {
+    id: 111, cat: "ml", level: "A",
+    q: "StandardScalerなどの変換器で『学習データから変換パラメータを計算し、同時に変換も行う』メソッドはどれか。",
+    choices: ["fit_transform()", "predict_transform()", "apply()", "convert()"],
+    answer: 0,
+    exp: "fit_transform()はfit(平均・標準偏差等の計算)とtransform(変換)を一度に行う。テストデータにはtransform()のみを適用する。",
+    choiceExp: [
+      "正解。fit_transform()が学習と変換をまとめて実行する。",
+      "predict_transformというメソッドは存在しない。",
+      "applyはpandasのメソッドで、scikit-learn変換器のAPIではない。",
+      "convertというメソッドは存在しない。"
+    ]
+  },
+
+  // ---------- data : データ収集と加工 ----------
+  {
+    id: 112, cat: "data", level: "A",
+    q: "Web APIのレスポンスなどで広く使われる、キーと値の組で構造を表すテキスト形式はどれか。",
+    choices: ["JSON", "JPEG", "ZIP", "EXE"],
+    answer: 0,
+    exp: "JSON(JavaScript Object Notation)はキーと値の組・配列で構造化データを表すテキスト形式で、Web APIのデータ交換の標準。",
+    choiceExp: [
+      "正解。JSONはWeb APIのデータ交換で最も一般的な形式。",
+      "JPEGは画像の圧縮形式。",
+      "ZIPはファイル圧縮形式。",
+      "EXEはWindowsの実行ファイル形式。"
+    ]
+  },
+  {
+    id: 113, cat: "data", level: "A",
+    q: "PythonでWebページやAPIにHTTPリクエストを送るためによく使われるライブラリはどれか。",
+    choices: ["requests", "pandas", "matplotlib", "pytest"],
+    answer: 0,
+    exp: "requestsはHTTP通信を簡潔に書けるライブラリで、requests.get(url)などでデータを取得できる。",
+    choiceExp: [
+      "正解。requestsがHTTPリクエスト送信の定番ライブラリ。",
+      "pandasはデータ加工・分析用で、HTTP通信ライブラリではない。",
+      "matplotlibは可視化ライブラリ。",
+      "pytestはテストフレームワーク。"
+    ]
+  },
+  {
+    id: 114, cat: "data", level: "A",
+    q: "取得したHTMLを解析(パース)してタグ単位で要素を取り出すのに使われるライブラリはどれか。",
+    choices: ["Beautiful Soup", "NumPy", "scikit-learn", "PyInstaller"],
+    answer: 0,
+    exp: "Beautiful Soup(beautifulsoup4)はHTML/XMLを解析して要素を抽出するスクレイピングの定番ライブラリ。requestsと組み合わせて使う。",
+    choiceExp: [
+      "正解。Beautiful SoupがHTML解析・要素抽出に使われる。",
+      "NumPyは数値計算ライブラリ。",
+      "scikit-learnは機械学習ライブラリ。",
+      "PyInstallerはPythonプログラムを実行ファイル化するツール。"
+    ]
+  },
+  {
+    id: 115, cat: "data", level: "A",
+    q: "pandasでカテゴリ列をone-hotエンコーディング(ダミー変数化)する関数はどれか。",
+    choices: ["pd.get_dummies()", "pd.onehot()", "pd.encode()", "pd.to_binary()"],
+    answer: 0,
+    exp: "pd.get_dummies(df['列'])でカテゴリごとの0/1列に展開できる。",
+    choiceExp: [
+      "正解。get_dummies()がダミー変数(0/1列)への展開を行う。",
+      "onehotという関数はpandasに存在しない(scikit-learnのOneHotEncoderは別)。",
+      "encodeは文字列のバイト変換メソッドで、ダミー変数化ではない。",
+      "to_binaryという関数は存在しない。"
+    ]
+  },
+  {
+    id: 116, cat: "data", level: "A",
+    q: "DataFrameから重複した行を取り除くメソッドはどれか。",
+    choices: ["df.drop_duplicates()", "df.unique()", "df.distinct()", "df.remove_same()"],
+    answer: 0,
+    exp: "drop_duplicates()は重複行を削除する。重複の有無の確認にはduplicated()を使う。",
+    choiceExp: [
+      "正解。drop_duplicates()が重複行を取り除く。",
+      "unique()はSeriesの一意な値の配列を返すメソッドで、DataFrameの行削除ではない。",
+      "distinctはSQLの構文で、pandasのメソッドではない。",
+      "remove_sameというメソッドは存在しない。"
+    ]
+  },
+  {
+    id: 117, cat: "data", level: "A",
+    q: "文字列から『パターンに一致する部分』を柔軟に検索・置換するために使うPython標準モジュールはどれか。",
+    choices: ["re(正規表現)", "os", "math", "csv"],
+    answer: 0,
+    exp: "reモジュールは正規表現によるパターンマッチングを提供し、表記ゆれの検出・置換など文字列加工に使われる。",
+    choiceExp: [
+      "正解。reモジュールが正規表現の検索・置換を提供する。",
+      "osはファイルパスや環境変数などOS操作用のモジュール。",
+      "mathは数学関数のモジュールで、文字列処理はしない。",
+      "csvはCSVファイルの読み書き用モジュール。"
+    ]
+  },
+  {
+    id: 118, cat: "data", level: "A",
+    q: "文字列の日付列('2026-07-15'など)をpandasの日時型に変換する関数はどれか。",
+    choices: ["pd.to_datetime()", "pd.date()", "pd.parse_time()", "pd.strptime()"],
+    answer: 0,
+    exp: "pd.to_datetime()は文字列をdatetime64型へ変換する。変換後は年・月の抽出やリサンプリングなど時系列処理が可能になる。",
+    choiceExp: [
+      "正解。to_datetime()が文字列を日時型に変換する。",
+      "pd.dateという関数は存在しない。",
+      "parse_timeという関数は存在しない。",
+      "strptimeはdatetimeモジュールのメソッドで、pd.strptimeは存在しない。"
+    ]
+  },
+  {
+    id: 119, cat: "data", level: "A",
+    q: "Excelファイル(.xlsx)をDataFrameとして読み込むpandasの関数はどれか。",
+    choices: ["pd.read_excel()", "pd.read_xlsx()", "pd.open_excel()", "pd.load_sheet()"],
+    answer: 0,
+    exp: "pd.read_excel('file.xlsx')でExcelを読み込める(内部でopenpyxl等を使用)。sheet_name引数でシートを指定できる。",
+    choiceExp: [
+      "正解。read_excel()がExcelファイルの読み込み関数。",
+      "read_xlsxという関数は存在しない(拡張子によらずread_excel)。",
+      "open_excelという関数は存在しない。",
+      "load_sheetという関数は存在しない。"
+    ]
+  },
+  {
+    id: 120, cat: "data", level: "A",
+    q: "Webスクレイピングを行う際のマナー・注意点として最も適切なものはどれか。",
+    choices: ["利用規約やrobots.txtを確認し、アクセス間隔を空けて負荷をかけない",
+              "できるだけ高頻度で連続アクセスして早く収集する",
+              "ログインが必要なデータも制限なく自由に収集してよい",
+              "取得したデータの出所は記録しなくてよい"],
+    answer: 0,
+    exp: "スクレイピングではサイトの利用規約・robots.txtの確認、適切なアクセス間隔、著作権への配慮が必要。",
+    choiceExp: [
+      "正解。相手サーバに負荷をかけず、規約を守るのが基本マナー。",
+      "高頻度アクセスはサーバに負荷をかけ、業務妨害となる恐れがある。",
+      "認証の先のデータは規約で収集が禁止されていることが多く、無制限には収集できない。",
+      "再現性や検証のためにも出所(取得元・取得日時)の記録は重要。"
     ]
   }
 ];
