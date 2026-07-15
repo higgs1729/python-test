@@ -1,0 +1,3 @@
+# デスクトップアプリの開発・ビルドに必要
+pywebview>=6.0
+pyinstaller>=6.0
