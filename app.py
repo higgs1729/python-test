@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 """データ分析試験 模擬問題集 — デスクトップアプリ(pywebview)
 
-ネイティブウィンドウに index.html を表示する。学習データ(progress.json)は
-js_api 経由で保存するため、HTTPサーバやブラウザは不要。
+ネイティブウィンドウに frontend のビルド成果物を表示する。学習データ
+(progress.json)は js_api 経由で保存するため、外部のHTTPサーバやブラウザは不要。
 
-開発時の起動:  python app.py   (要 pip install pywebview)
+画面は React(Vite)製で ES module を使うため、file:// では CORS により
+読み込めない。pywebview 内蔵のHTTPサーバ(http_server=True)経由で配信する。
+
+開発時の起動:  npm --prefix frontend run build && python app.py
 配布用exe化 :  build.bat        (PyInstaller)
 """
 import os
@@ -15,11 +18,16 @@ import webview
 from storage import Storage
 
 
-def resource_dir():
-    """同梱リソース(index.html 等)のフォルダ。onefileでは展開先(_MEIPASS)。"""
+def webui_index():
+    """表示する index.html のパス。
+
+    exe(onefile)では同梱した webui/ を展開先(_MEIPASS)から、
+    開発時は frontend/dist/ から読む。
+    """
     if getattr(sys, "frozen", False):
-        return sys._MEIPASS
-    return os.path.dirname(os.path.abspath(__file__))
+        return os.path.join(sys._MEIPASS, "webui", "index.html")
+    base = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base, "frontend", "dist", "index.html")
 
 
 class Api(Storage):
@@ -36,7 +44,13 @@ class Api(Storage):
 
 
 def main():
-    html_path = os.path.join(resource_dir(), "index.html")
+    html_path = webui_index()
+    if not os.path.exists(html_path):
+        sys.exit(
+            "画面のビルド成果物が見つかりません:\n"
+            f"  {html_path}\n"
+            "先に `npm --prefix frontend run build` を実行してください。"
+        )
     api = Api()
     window = webview.create_window(
         "データ分析試験 模擬問題集",
@@ -47,7 +61,8 @@ def main():
         min_size=(600, 700),
     )
     api._window = window
-    webview.start()
+    # ES module を読むため file:// ではなく内蔵HTTPサーバ経由で配信する
+    webview.start(http_server=True)
 
 
 if __name__ == "__main__":

@@ -2,22 +2,25 @@
 # -*- coding: utf-8 -*-
 """データ分析試験 模擬問題集 ローカルサーバ
 
-静的ファイル(index.html 等)を配信し、学習データ(成績・マーク)を
+frontend のビルド成果物(frontend/dist)を配信し、学習データ(成績・マーク)を
 このフォルダ内の progress.json に保存する。
 ブラウザの localStorage ではなく python-test フォルダに保存されるため、
 バックアップやGit管理、別PCへの持ち運びが容易になる。
 
 使い方:
+    npm --prefix frontend run build
     python server.py
     → ブラウザで http://localhost:8000/ を開く
     → 終了は Ctrl+C
 """
 import json
 import os
+import sys
 import threading
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+WEB_DIR = os.path.join(BASE_DIR, "frontend", "dist")
 DATA_FILE = os.path.join(BASE_DIR, "progress.json")
 PORT = 8000
 EMPTY = {"stats": {}, "flags": {}}
@@ -25,8 +28,8 @@ EMPTY = {"stats": {}, "flags": {}}
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        # 配信ルートをこのスクリプトのあるフォルダに固定
-        super().__init__(*args, directory=BASE_DIR, **kwargs)
+        # 配信ルートは Vite のビルド成果物に固定
+        super().__init__(*args, directory=WEB_DIR, **kwargs)
 
     def _send_json(self, obj, status=200):
         body = json.dumps(obj, ensure_ascii=False).encode("utf-8")
@@ -83,6 +86,12 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def main():
+    if not os.path.exists(os.path.join(WEB_DIR, "index.html")):
+        sys.exit(
+            "画面のビルド成果物が見つかりません:\n"
+            f"  {WEB_DIR}\n"
+            "先に `npm --prefix frontend run build` を実行してください。"
+        )
     os.chdir(BASE_DIR)
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     print("データ分析試験 模擬問題集サーバを起動しました。")

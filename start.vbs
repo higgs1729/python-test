@@ -8,6 +8,13 @@ Set fso = CreateObject("Scripting.FileSystemObject")
 dir = fso.GetParentFolderName(WScript.ScriptFullName)
 sh.CurrentDirectory = dir
 
+' The UI is a Vite build; without it the server has nothing to serve.
+If Not fso.FileExists(dir & "\frontend\dist\index.html") Then
+  MsgBox "The UI has not been built yet." & vbCrLf & _
+         "Run: npm --prefix frontend run build", 48, "Launch error"
+  WScript.Quit 1
+End If
+
 ' Locate the real pythonw.exe (skip the WindowsApps store alias).
 pyw = FindPythonw(sh, fso)
 If pyw = "" Then

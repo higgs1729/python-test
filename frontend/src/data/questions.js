@@ -23,7 +23,7 @@
 //   ml     : 機械学習(scikit-learn)
 //   data   : データ収集と加工
 //
-window.QUESTIONS = [
+export const QUESTIONS = [
   // ---------- role : データ分析エンジニアの役割 ----------
   {
     id: 1, cat: "role", level: "A",
@@ -2586,7 +2586,7 @@ window.QUESTIONS = [
 ];
 
 // カテゴリ表示名
-window.CATEGORIES = {
+export const CATEGORIES = {
   role:   "データ分析エンジニアの役割",
   env:    "実行環境 / Jupyter",
   pybase: "Pythonの基礎",
