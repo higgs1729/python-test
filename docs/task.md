@@ -1,22 +1,3 @@
-feat:teamT-appのテーマをライト/ダーク/ミッドナイトの3種へ復活
-
-外観の適用先をラッパーdivのクラスから<html>のdata-team-t-theme属性へ移し、
-モバイルサイドバー(Sheetポータル)が親テーマを継承せずライト色になる不具合を解消した。
-併せてcomponents/ui/*のdark:バリアントもmidnight/darkで有効になる。
-
-- 3themeともゴールドの意匠を残し、明度トークンのみ差し替え。ライトはゴールドを
-  濃色化してコントラストを確保し、紫の塗り上用に--team-t-gold-on-primaryを新設
-- preferencesにtheme(既定=midnight)/accent/emphasizeBordersを追加。既存の保存
-  データにキーが無い場合は既定へフォールバックする
-- 設定モーダルの外観に(studio)を参考としたテーマカード3枚・アクセント5色・枠線
-  強調を追加。ミッドナイト選択中はアクセントをdisabledにする
-- <html>はルートのnext-themesと共有するため、mount時の状態を控えてunmountで復元
-- ゲームdialogは演出上ミッドナイト固定を維持
-- コイン進捗トラックが黒背景に埋もれていたのをbg-foreground/15へ修正
-
-型チェック・lint・Storybook・実描画は未検証(node_modules不在のため実行不可)。
-
-テキストを選択してClaudeにコメントを残してください
 データ分析試験アプリの React + shadcn/ui 移行
 Context
 python-test は pywebview デスクトップアプリ（および server.py 経由のブラウザ運用）で動く
